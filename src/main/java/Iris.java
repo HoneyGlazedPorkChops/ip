@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Iris {
     public static void main(String[] args) {
@@ -11,6 +13,7 @@ public class Iris {
         );
 
         Scanner scanner = new Scanner(System.in);
+        List<String> list = new ArrayList<>();
 
         while (true) {
             System.out.print("Your command: ");
@@ -24,8 +27,19 @@ public class Iris {
                 break;
             }
 
+            if (input.equalsIgnoreCase("list")) {
+                System.out.println("____________________________________________________________");
+                for (int i = 0; i < list.size(); i++) {
+                    System.out.println((i + 1) + ". " + list.get(i));
+                }
+                System.out.println("____________________________________________________________");
+                break;
+            }
+
+            list.add(input);
+
             System.out.println("____________________________________________________________\n"
-                            + input + "\n"
+                            + "added: " + input + "\n"
                             + "____________________________________________________________"
             );
         }
