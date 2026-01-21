@@ -5,11 +5,13 @@ mark 1
 unmark 1
 mark 3
 mark first
-todo play games
+todo tutorial homework
 deadline assignment
 deadline assignment /by Thursday
 event family dinner /from Fri 6:00pm
 event family dinner /from Fri 6:00pm /to 7:30pm
 list
+delete 7
+delete 3
 lol
 bye

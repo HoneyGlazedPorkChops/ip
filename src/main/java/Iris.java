@@ -69,9 +69,11 @@ public class Iris {
                         } else {
                             list.get(index).mark();
                             System.out.println("____________________________________________________________");
-                            System.out.println("Nice! I've marked this task as done:");
+                            System.out.println("Was just wondering when you were going to complete that...");
+                            System.out.println("I've marked this task as done:");
                             System.out.println(list.get(index).toString());
-                            System.out.println("Move on, I'm not here to give out rewards");
+                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                            System.out.println("\nMove on, I'm not here to give out rewards");
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
@@ -102,7 +104,41 @@ public class Iris {
                             System.out.println("____________________________________________________________");
                             System.out.println("Looks like someone is slow... I have marked it as undone for you:");
                             System.out.println(list.get(index).toString());
-                            System.out.println("What are you waiting for? Go on then.");
+                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                            System.out.println("\nWhat are you waiting for? Go on then.");
+                            System.out.println("____________________________________________________________");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("One of us just made an error and I'm sure it wasn't me");
+                        System.out.println("____________________________________________________________");
+                    }
+                }
+
+                if (input.toLowerCase().startsWith("delete")) {
+                    handled = true;
+                    String[] parts = input.split("\\s+");
+                    if (parts.length != 2) {
+                        System.out.println("____________________________________________________________");
+                        System.out.println("I advise you to stop speaking gibberish");
+                        System.out.println("____________________________________________________________");
+                        continue;
+                    }
+                    try {
+                        int index = Integer.parseInt(parts[1]) - 1;
+                        if (index < 0 || index >= list.size()) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("It appears that you are lacking a frontal lobe and have");
+                            System.out.println("asked me to remove something that has not yet existed...");
+                            System.out.println("____________________________________________________________");
+                        } else {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Here I was beginning to think you have forgotten about this...");
+                            System.out.println("I have removed the following task:");
+                            System.out.println(list.get(index).toString());
+                            list.remove(index);
+                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                            System.out.println("\nMore free time for you then... Enjoy.");
                             System.out.println("____________________________________________________________");
                         }
                     } catch (NumberFormatException e) {
@@ -120,7 +156,7 @@ public class Iris {
                     ToDo todo = new ToDo(description);
                     list.add(todo);
                     System.out.println("____________________________________________________________");
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("Added the following task:");
                     System.out.println(todo);
                     System.out.println("Better get it done early... or you could just be lazy");
                     System.out.println("        Now you have " + list.size() + " tasks in the list.");
@@ -145,7 +181,7 @@ public class Iris {
                         Deadline deadline = new Deadline(description, date);
                         list.add(deadline);
                         System.out.println("____________________________________________________________");
-                        System.out.println("Got it. I've added this task:");
+                        System.out.println("Added the following task:");
                         System.out.println(deadline);
                         System.out.println("It is called a Deadline for a reason, better hurry up");
                         System.out.println("        Now you have " + list.size() + " tasks in the list.");
@@ -174,7 +210,7 @@ public class Iris {
                         Event event = new Event(description, start, end);
                         list.add(event);
                         System.out.println("____________________________________________________________");
-                        System.out.println("Got it. I've added this task:");
+                        System.out.println("Added the following task:");
                         System.out.println(event);
                         System.out.println("Sounds like fun... or a chore...");
                         System.out.println("        Now you have " + list.size() + " tasks in the list.");
@@ -270,6 +306,7 @@ public class Iris {
             } catch (IrisException e) {
                 System.out.println("____________________________________________________________");
                 System.out.println(e.getMessage());
+                System.out.println("Has your age finally caught up with you? I need a valid command.");
                 System.out.println("____________________________________________________________");
             }
         }

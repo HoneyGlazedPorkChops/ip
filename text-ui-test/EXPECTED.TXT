@@ -5,14 +5,14 @@ ____________________________________________________________
 
 What would you like me to do?:
 ____________________________________________________________
-Got it. I've added this task:
+Added the following task:
 [D][ ] return book (by: Sunday)
 It is called a Deadline for a reason, better hurry up
         Now you have 1 tasks in the list.
 ____________________________________________________________
 What would you like me to do?:
 ____________________________________________________________
-Got it. I've added this task:
+Added the following task:
 [E][ ] project meeting (from: Mon 2pm to: 4pm)
 Sounds like fun... or a chore...
         Now you have 2 tasks in the list.
@@ -27,14 +27,19 @@ Light work... Hopefully right?
 ____________________________________________________________
 What would you like me to do?:
 ____________________________________________________________
-Nice! I've marked this task as done:
+Was just wondering when you were going to complete that...
+I've marked this task as done:
 [D][X] return book (by: Sunday)
+        Now you have 2 tasks in the list.
+
 Move on, I'm not here to give out rewards
 ____________________________________________________________
 What would you like me to do?:
 ____________________________________________________________
 Looks like someone is slow... I have marked it as undone for you:
 [D][ ] return book (by: Sunday)
+        Now you have 2 tasks in the list.
+
 What are you waiting for? Go on then.
 ____________________________________________________________
 What would you like me to do?:
@@ -48,8 +53,8 @@ One of us just made an error and I'm sure it wasn't me
 ____________________________________________________________
 What would you like me to do?:
 ____________________________________________________________
-Got it. I've added this task:
-[T][ ] play games
+Added the following task:
+[T][ ] tutorial homework
 Better get it done early... or you could just be lazy
         Now you have 3 tasks in the list.
 ____________________________________________________________
@@ -59,7 +64,7 @@ I'm not omniscient you know? Give me more details.
 ____________________________________________________________
 What would you like me to do?:
 ____________________________________________________________
-Got it. I've added this task:
+Added the following task:
 [D][ ] assignment (by: Thursday)
 It is called a Deadline for a reason, better hurry up
         Now you have 4 tasks in the list.
@@ -70,7 +75,7 @@ Did you develop dementia? You missed out some crucial information!
 ____________________________________________________________
 What would you like me to do?:
 ____________________________________________________________
-Got it. I've added this task:
+Added the following task:
 [E][ ] family dinner (from: Fri 6:00pm to: 7:30pm)
 Sounds like fun... or a chore...
         Now you have 5 tasks in the list.
@@ -80,11 +85,25 @@ ____________________________________________________________
 Here are the tasks in your list
 1. [D][ ] return book (by: Sunday)
 2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-3. [T][ ] play games
+3. [T][ ] tutorial homework
 4. [D][ ] assignment (by: Thursday)
 5. [E][ ] family dinner (from: Fri 6:00pm to: 7:30pm)
 
 Are you that busy or do you just like to procrastinate?
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+It appears that you are lacking a frontal lobe and have
+asked me to remove something that has not yet existed...
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Here I was beginning to think you have forgotten about this...
+I have removed the following task:
+[T][ ] tutorial homework
+        Now you have 4 tasks in the list.
+
+More free time for you then... Enjoy.
 ____________________________________________________________
 What would you like me to do?:
 ____________________________________________________________
@@ -169,6 +188,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;.  .:::::;;;;,,,''''''''..          .:odddooddddo
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWk,.  .';:::::;;;;;;,,,,,,'..           ;oddooodddoooddooolooollooddddddoodddooododdoooddooooolooooolllccloooc:cllloolc::c
 WWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;.   ..;:;;;;;;;;;;;;;,,.             ,oddooodddoloddoollooollooddddddodddoooooooooodddoooollodooollcclolooc;:cloollc::c
 
+Has your age finally caught up with you? I need a valid command.
 ____________________________________________________________
 What would you like me to do?:
 ____________________________________________________________
