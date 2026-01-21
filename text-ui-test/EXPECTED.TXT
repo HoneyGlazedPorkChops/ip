@@ -1,7 +1,92 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+____________________________________________________________
+Hello! I'm Iris
+What can I do for you?
+____________________________________________________________
 
+What would you like me to do?:
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] return book (by: Sunday)
+It is called a Deadline for a reason, better hurry up
+        Now you have 1 tasks in the list.
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Sounds like fun... or a chore...
+        Now you have 2 tasks in the list.
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Here are the tasks in your list
+1. [D][ ] return book (by: Sunday)
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+
+Light work... Hopefully right?
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Nice! I've marked this task as done:
+[D][X] return book (by: Sunday)
+Move on, I'm not here to give out rewards
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Looks like someone is slow... I have marked it as undone for you:
+[D][ ] return book (by: Sunday)
+What are you waiting for? Go on then.
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Getting overzealous now are we? Unless you can read the future,
+I don't think you can finish that task...
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+One of us just made an error and I'm sure it wasn't me
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Got it. I've added this task:
+[T][ ] play games
+Better get it done early... or you could just be lazy
+        Now you have 3 tasks in the list.
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+I'm not omniscient you know? Give me more details.
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Got it. I've added this task:
+[D][ ] assignment (by: Thursday)
+It is called a Deadline for a reason, better hurry up
+        Now you have 4 tasks in the list.
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Did you develop dementia? You missed out some crucial information!
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Got it. I've added this task:
+[E][ ] family dinner (from: Fri 6:00pm to: 7:30pm)
+Sounds like fun... or a chore...
+        Now you have 5 tasks in the list.
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Here are the tasks in your list
+1. [D][ ] return book (by: Sunday)
+2. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [T][ ] play games
+4. [D][ ] assignment (by: Thursday)
+5. [E][ ] family dinner (from: Fri 6:00pm to: 7:30pm)
+
+Are you that busy or do you just like to procrastinate?
+____________________________________________________________
+What would you like me to do?:
+____________________________________________________________
+Bye. Hope to see you again soon!
+____________________________________________________________
