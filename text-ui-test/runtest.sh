@@ -12,6 +12,9 @@ then
     rm ACTUAL.TXT
 fi
 
+# clears tasks.txt for each run
+rm -f tasks.txt
+
 # compile the code into the bin folder, terminates if error occurred
 if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
 then
