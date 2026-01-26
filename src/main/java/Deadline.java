@@ -1,25 +1,28 @@
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Deadline extends Task {
-    protected LocalDate by;
+    protected LocalDateTime by;
+    private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
-    public Deadline(String description, LocalDate by) {
+    public Deadline(String description, LocalDateTime by) {
         super(description);
         this.by = by;
     }
 
     private boolean isOverdue() {
-        return !isDone && by.isBefore(LocalDate.now());
+        return !isDone && by.isBefore(LocalDateTime.now());
     }
 
     @Override
     public String toString() {
         String status = isOverdue() ? " ⚠ OVERDUE" : "";
-        return "[D]" + super.toString() + " (by: " + by + ")" + status;
+        return "[D]" + super.toString() + " (by: " + by.format(fmt) + ")" + status;
     }
 
     @Override
     public String toSaveString() {
-        return "DEADLINE | " + (isDone ? "1" : "0") + " | " + description + " | " + by;
+        return "DEADLINE | " + (isDone ? "1" : "0") + " | " + description
+                + " | " + by.format(fmt);
     }
 }

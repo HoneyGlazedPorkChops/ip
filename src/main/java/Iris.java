@@ -4,10 +4,14 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Iris {
+    private static final DateTimeFormatter SAVE_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
     private static final String SAVE_FILE = "tasks.txt";
 
     private static void saveTasks(ArrayList<Task> list) {
@@ -51,12 +55,12 @@ public class Iris {
             switch (type) {
                 case "TODO" -> t = new ToDo(parts[2].trim());
                 case "DEADLINE" -> {
-                    LocalDate by = LocalDate.parse(parts[3].trim());
+                    LocalDateTime by = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
                     t = new Deadline(parts[2].trim(), by);
                 }
                 case "EVENT" -> {
-                    LocalDate from = LocalDate.parse(parts[3].trim());
-                    LocalDate to = LocalDate.parse(parts[4].trim());
+                    LocalDateTime from = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
+                    LocalDateTime to = LocalDateTime.parse(parts[4].trim(), SAVE_FMT);
                     t = new Event(parts[2].trim(), from, to);
                 }
             }
@@ -71,6 +75,25 @@ public class Iris {
             System.out.println("⚠ Warning: Skipped corrupted save line:");
             System.out.println("    " + line);
             return null;
+        }
+    }
+
+    private static LocalDateTime parseDateTime(String input) {
+        DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        try {
+            // Try full date + time first
+            return LocalDateTime.parse(input, dateTimeFmt);
+        } catch (DateTimeParseException e) {
+            try {
+                // Fallback: parse only date, set time to 00:00
+                LocalDate date = LocalDate.parse(input, dateFmt);
+                return date.atStartOfDay();
+            } catch (DateTimeParseException ex) {
+                // If both fail, throw exception to caller
+                throw new DateTimeParseException("Invalid date/time format", input, 0);
+            }
         }
     }
 
@@ -256,7 +279,7 @@ public class Iris {
                         String dateString = rest.substring(byIndex + 5).trim();
 
                         try {
-                            LocalDate date = LocalDate.parse(dateString);
+                            LocalDateTime date = parseDateTime(dateString);
 
                             Deadline deadline = new Deadline(description, date);
                             list.add(deadline);
@@ -271,7 +294,7 @@ public class Iris {
                         } catch (DateTimeParseException e) {
                             System.out.println("____________________________________________________________");
                             System.out.println("Losing a few screws? That date doesn't exist in this universe.");
-                            System.out.println("Use format YYYY-MM-DD");
+                            System.out.println("Use format YYYY-MM-DD or YYYY-MM-DD HH:MM");
                             System.out.println("____________________________________________________________");
                         }
                     }
@@ -295,8 +318,8 @@ public class Iris {
                         String end = rest.substring(toIndex + 5).trim();
 
                         try {
-                            LocalDate startDate = LocalDate.parse(start);
-                            LocalDate endDate = LocalDate.parse(end);
+                            LocalDateTime startDate = parseDateTime(start);
+                            LocalDateTime endDate = parseDateTime(end);
 
                             if (endDate.isBefore(startDate)) {
                                 System.out.println("End date cannot be before start date.");
@@ -313,7 +336,10 @@ public class Iris {
                             System.out.println("        Now you have " + list.size() + " tasks in the list.");
                             System.out.println("____________________________________________________________");
                         } catch (DateTimeParseException e) {
-                            System.out.println("Invalid date format. Use YYYY-MM-DD");
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Please abide by the standard format or else...");
+                            System.out.println("Invalid date format. Use YYYY-MM-DD or YYYY-MM-DD HH:MM");
+                            System.out.println("____________________________________________________________");
                         }
                     }
                 }
