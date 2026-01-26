@@ -1,5 +1,5 @@
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+deadline return book /by 2019-10-15
+event project meeting /from 2030-12-02 16:00 /to 2030-12-03 18:00
 list
 mark 1
 unmark 1
@@ -7,9 +7,9 @@ mark 3
 mark first
 todo tutorial homework
 deadline assignment
-deadline assignment /by Thursday
-event family dinner /from Fri 6:00pm
-event family dinner /from Fri 6:00pm /to 7:30pm
+deadline assignment /by 2027-03-19 23:59
+event family dinner /from 2026-02-03
+event family dinner /from 2026-02-03 17:30 /to 2026-02-03 19:00
 list
 delete 7
 delete 3
