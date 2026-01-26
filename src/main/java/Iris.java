@@ -1,10 +1,69 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Iris {
+    private static final String SAVE_FILE = "tasks.txt";
+
+    private static void saveTasks(ArrayList<Task> list) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(SAVE_FILE))) {
+            for (Task t : list) {
+                pw.println(t.toSaveString());
+            }
+        } catch (IOException e) {
+            System.out.println("Error saving tasks.");
+        }
+    }
+
+    private static void loadTasks(ArrayList<Task> list) {
+        File file = new File(SAVE_FILE);
+        if (!file.exists()) {
+            return;
+        }
+
+        try (Scanner sc = new Scanner(file)) {
+            while (sc.hasNextLine()) {
+                String line = sc.nextLine();
+                Task t = parseTask(line);
+                if (t != null) {
+                    list.add(t);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error loading saved tasks.");
+        }
+    }
+
+    private static Task parseTask(String line) {
+        String[] parts = line.split("\\|");
+
+        String type = parts[0].trim();
+        boolean done = parts[1].trim().equals("1");
+
+        Task t = null;
+
+        if (type.equals("TODO")) {
+            t = new ToDo(parts[2].trim());
+        } else if (type.equals("DEADLINE")) {
+            t = new Deadline(parts[2].trim(), parts[3].trim());
+        } else if (type.equals("EVENT")) {
+            t = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+        }
+
+        if (done && t != null) {
+            t.mark();
+        }
+
+        return t;
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> list = new ArrayList<>();
+        loadTasks(list);
 
         System.out.println("""
                 ____________________________________________________________
@@ -68,6 +127,7 @@ public class Iris {
                             System.out.println("____________________________________________________________");
                         } else {
                             list.get(index).mark();
+                            saveTasks(list);
                             System.out.println("____________________________________________________________");
                             System.out.println("Was just wondering when you were going to complete that...");
                             System.out.println("I've marked this task as done:");
@@ -101,6 +161,7 @@ public class Iris {
                             System.out.println("____________________________________________________________");
                         } else {
                             list.get(index).unmark();
+                            saveTasks(list);
                             System.out.println("____________________________________________________________");
                             System.out.println("Looks like someone is slow... I have marked it as undone for you:");
                             System.out.println(list.get(index).toString());
@@ -137,6 +198,7 @@ public class Iris {
                             System.out.println("I have removed the following task:");
                             System.out.println(list.get(index).toString());
                             list.remove(index);
+                            saveTasks(list);
                             System.out.println("        Now you have " + list.size() + " tasks in the list.");
                             System.out.println("\nMore free time for you then... Enjoy.");
                             System.out.println("____________________________________________________________");
@@ -155,6 +217,7 @@ public class Iris {
 
                     ToDo todo = new ToDo(description);
                     list.add(todo);
+                    saveTasks(list);
                     System.out.println("____________________________________________________________");
                     System.out.println("Added the following task:");
                     System.out.println(todo);
@@ -180,6 +243,7 @@ public class Iris {
 
                         Deadline deadline = new Deadline(description, date);
                         list.add(deadline);
+                        saveTasks(list);
                         System.out.println("____________________________________________________________");
                         System.out.println("Added the following task:");
                         System.out.println(deadline);
@@ -209,6 +273,7 @@ public class Iris {
 
                         Event event = new Event(description, start, end);
                         list.add(event);
+                        saveTasks(list);
                         System.out.println("____________________________________________________________");
                         System.out.println("Added the following task:");
                         System.out.println(event);
