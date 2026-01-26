@@ -8,7 +8,7 @@ public abstract class Task {
     }
 
     private String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return (isDone ? "X" : " ");
     }
 
     private String getDescription() {

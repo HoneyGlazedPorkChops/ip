@@ -4,6 +4,8 @@ import java.io.PrintWriter;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class Iris {
     private static final String SAVE_FILE = "tasks.txt";
@@ -33,31 +35,43 @@ public class Iris {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error loading saved tasks.");
+            System.out.println("It appears there was an error when loading saved tasks...");
         }
     }
 
     private static Task parseTask(String line) {
-        String[] parts = line.split("\\|");
+        try {
+            String[] parts = line.split("\\|");
 
-        String type = parts[0].trim();
-        boolean done = parts[1].trim().equals("1");
+            String type = parts[0].trim();
+            boolean done = parts[1].trim().equals("1");
 
-        Task t = null;
+            Task t = null;
 
-        if (type.equals("TODO")) {
-            t = new ToDo(parts[2].trim());
-        } else if (type.equals("DEADLINE")) {
-            t = new Deadline(parts[2].trim(), parts[3].trim());
-        } else if (type.equals("EVENT")) {
-            t = new Event(parts[2].trim(), parts[3].trim(), parts[4].trim());
+            switch (type) {
+                case "TODO" -> t = new ToDo(parts[2].trim());
+                case "DEADLINE" -> {
+                    LocalDate by = LocalDate.parse(parts[3].trim());
+                    t = new Deadline(parts[2].trim(), by);
+                }
+                case "EVENT" -> {
+                    LocalDate from = LocalDate.parse(parts[3].trim());
+                    LocalDate to = LocalDate.parse(parts[4].trim());
+                    t = new Event(parts[2].trim(), from, to);
+                }
+            }
+
+            if (done && t != null) {
+                t.mark();
+            }
+
+            return t;
+
+        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+            System.out.println("⚠ Warning: Skipped corrupted save line:");
+            System.out.println("    " + line);
+            return null;
         }
-
-        if (done && t != null) {
-            t.mark();
-        }
-
-        return t;
     }
 
     public static void main(String[] args) {
@@ -239,17 +253,27 @@ public class Iris {
                         System.out.println("____________________________________________________________");
                     } else {
                         String description = rest.substring(0, byIndex).trim();
-                        String date = rest.substring(byIndex + 5).trim();
+                        String dateString = rest.substring(byIndex + 5).trim();
 
-                        Deadline deadline = new Deadline(description, date);
-                        list.add(deadline);
-                        saveTasks(list);
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Added the following task:");
-                        System.out.println(deadline);
-                        System.out.println("It is called a Deadline for a reason, better hurry up");
-                        System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
+                        try {
+                            LocalDate date = LocalDate.parse(dateString);
+
+                            Deadline deadline = new Deadline(description, date);
+                            list.add(deadline);
+                            saveTasks(list);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Added the following task:");
+                            System.out.println(deadline);
+                            System.out.println("It is called a Deadline for a reason, better hurry up");
+                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                            System.out.println("____________________________________________________________");
+
+                        } catch (DateTimeParseException e) {
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Losing a few screws? That date doesn't exist in this universe.");
+                            System.out.println("Use format YYYY-MM-DD");
+                            System.out.println("____________________________________________________________");
+                        }
                     }
                 }
 
@@ -270,16 +294,27 @@ public class Iris {
                         String start = rest.substring(fromIndex + 7, toIndex).trim();
                         String end = rest.substring(toIndex + 5).trim();
 
+                        try {
+                            LocalDate startDate = LocalDate.parse(start);
+                            LocalDate endDate = LocalDate.parse(end);
 
-                        Event event = new Event(description, start, end);
-                        list.add(event);
-                        saveTasks(list);
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Added the following task:");
-                        System.out.println(event);
-                        System.out.println("Sounds like fun... or a chore...");
-                        System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                        System.out.println("____________________________________________________________");
+                            if (endDate.isBefore(startDate)) {
+                                System.out.println("End date cannot be before start date.");
+                                continue;
+                            }
+
+                            Event event = new Event(description, startDate, endDate);
+                            list.add(event);
+                            saveTasks(list);
+                            System.out.println("____________________________________________________________");
+                            System.out.println("Added the following task:");
+                            System.out.println(event);
+                            System.out.println("Sounds like fun... or a chore...");
+                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
+                            System.out.println("____________________________________________________________");
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Invalid date format. Use YYYY-MM-DD");
+                        }
                     }
                 }
 

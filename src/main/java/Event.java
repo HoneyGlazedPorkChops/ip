@@ -1,16 +1,24 @@
-public class Event extends Task {
-    protected String from;
-    protected String to;
+import java.time.LocalDate;
 
-    public Event(String description, String from, String to) {
+public class Event extends Task {
+    protected LocalDate from;
+    protected LocalDate to;
+
+    public Event(String description, LocalDate from, LocalDate to) {
         super(description);
         this.from = from;
         this.to = to;
     }
 
+    private boolean isOver() {
+        return to.isBefore(LocalDate.now());
+    }
+
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")";
+        String status = isOver() ? " OVER :(" : "";
+        return "[E]" + super.toString() + " (from: " + this.from + " to: " + this.to + ")"
+                + status;
     }
 
     @Override
