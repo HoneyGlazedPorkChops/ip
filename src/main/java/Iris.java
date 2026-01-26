@@ -65,6 +65,7 @@ public class Iris {
         ArrayList<Task> list = new ArrayList<>();
         loadTasks(list);
 
+
         System.out.println("""
                 ____________________________________________________________
                 Hello! I'm Iris
@@ -269,7 +270,6 @@ public class Iris {
                         String description = rest.substring(0, fromIndex).trim();
                         String start = rest.substring(fromIndex + 7, toIndex).trim();
                         String end = rest.substring(toIndex + 5).trim();
-
 
                         Event event = new Event(description, start, end);
                         list.add(event);
