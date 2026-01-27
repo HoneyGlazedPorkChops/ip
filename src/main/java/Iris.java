@@ -14,69 +14,69 @@ public class Iris {
 
     private static final String SAVE_FILE = "tasks.txt";
 
-    private static void saveTasks(ArrayList<Task> list) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter(SAVE_FILE))) {
-            for (Task t : list) {
-                pw.println(t.toSaveString());
-            }
-        } catch (IOException e) {
-            System.out.println("Error saving tasks.");
-        }
-    }
+//    private static void saveTasks(ArrayList<Task> list) {
+//        try (PrintWriter pw = new PrintWriter(new FileWriter(SAVE_FILE))) {
+//            for (Task t : list) {
+//                pw.println(t.toSaveString());
+//            }
+//        } catch (IOException e) {
+//            System.out.println("Error saving tasks.");
+//        }
+//    }
 
-    private static void loadTasks(ArrayList<Task> list) {
-        File file = new File(SAVE_FILE);
-        if (!file.exists()) {
-            return;
-        }
-
-        try (Scanner sc = new Scanner(file)) {
-            while (sc.hasNextLine()) {
-                String line = sc.nextLine();
-                Task t = parseTask(line);
-                if (t != null) {
-                    list.add(t);
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("It appears there was an error when loading saved tasks...");
-        }
-    }
-
-    private static Task parseTask(String line) {
-        try {
-            String[] parts = line.split("\\|");
-
-            String type = parts[0].trim();
-            boolean done = parts[1].trim().equals("1");
-
-            Task t = null;
-
-            switch (type) {
-                case "TODO" -> t = new ToDo(parts[2].trim());
-                case "DEADLINE" -> {
-                    LocalDateTime by = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
-                    t = new Deadline(parts[2].trim(), by);
-                }
-                case "EVENT" -> {
-                    LocalDateTime from = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
-                    LocalDateTime to = LocalDateTime.parse(parts[4].trim(), SAVE_FMT);
-                    t = new Event(parts[2].trim(), from, to);
-                }
-            }
-
-            if (done && t != null) {
-                t.mark();
-            }
-
-            return t;
-
-        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("⚠ Warning: Skipped corrupted save line:");
-            System.out.println("    " + line);
-            return null;
-        }
-    }
+//    private static void loadTasks(ArrayList<Task> list) {
+//        File file = new File(SAVE_FILE);
+//        if (!file.exists()) {
+//            return;
+//        }
+//
+//        try (Scanner sc = new Scanner(file)) {
+//            while (sc.hasNextLine()) {
+//                String line = sc.nextLine();
+//                Task t = parseTask(line);
+//                if (t != null) {
+//                    list.add(t);
+//                }
+//            }
+//        } catch (IOException e) {
+//            System.out.println("It appears there was an error when loading saved tasks...");
+//        }
+//    }
+//
+//    private static Task parseTask(String line) {
+//        try {
+//            String[] parts = line.split("\\|");
+//
+//            String type = parts[0].trim();
+//            boolean done = parts[1].trim().equals("1");
+//
+//            Task t = null;
+//
+//            switch (type) {
+//                case "TODO" -> t = new ToDo(parts[2].trim());
+//                case "DEADLINE" -> {
+//                    LocalDateTime by = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
+//                    t = new Deadline(parts[2].trim(), by);
+//                }
+//                case "EVENT" -> {
+//                    LocalDateTime from = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
+//                    LocalDateTime to = LocalDateTime.parse(parts[4].trim(), SAVE_FMT);
+//                    t = new Event(parts[2].trim(), from, to);
+//                }
+//            }
+//
+//            if (done && t != null) {
+//                t.mark();
+//            }
+//
+//            return t;
+//
+//        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
+//            System.out.println("⚠ Warning: Skipped corrupted save line:");
+//            System.out.println("    " + line);
+//            return null;
+//        }
+//    }
 
     private static LocalDateTime parseDateTime(String input) {
         DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -99,8 +99,8 @@ public class Iris {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
-        loadTasks(list);
+        Storage storage = new Storage(SAVE_FILE);
+        ArrayList<Task> list = storage.load();
 
         System.out.println("""
                 ____________________________________________________________
@@ -164,7 +164,7 @@ public class Iris {
                             System.out.println("____________________________________________________________");
                         } else {
                             list.get(index).mark();
-                            saveTasks(list);
+                            storage.save(list);
                             System.out.println("____________________________________________________________");
                             System.out.println("Was just wondering when you were going to complete that...");
                             System.out.println("I've marked this task as done:");
@@ -198,7 +198,7 @@ public class Iris {
                             System.out.println("____________________________________________________________");
                         } else {
                             list.get(index).unmark();
-                            saveTasks(list);
+                            storage.save(list);
                             System.out.println("____________________________________________________________");
                             System.out.println("Looks like someone is slow... I have marked it as undone for you:");
                             System.out.println(list.get(index).toString());
@@ -235,7 +235,7 @@ public class Iris {
                             System.out.println("I have removed the following task:");
                             System.out.println(list.get(index).toString());
                             list.remove(index);
-                            saveTasks(list);
+                            storage.save(list);
                             System.out.println("        Now you have " + list.size() + " tasks in the list.");
                             System.out.println("\nMore free time for you then... Enjoy.");
                             System.out.println("____________________________________________________________");
@@ -254,7 +254,7 @@ public class Iris {
 
                     ToDo todo = new ToDo(description);
                     list.add(todo);
-                    saveTasks(list);
+                    storage.save(list);
                     System.out.println("____________________________________________________________");
                     System.out.println("Added the following task:");
                     System.out.println(todo);
@@ -283,7 +283,7 @@ public class Iris {
 
                             Deadline deadline = new Deadline(description, date);
                             list.add(deadline);
-                            saveTasks(list);
+                            storage.save(list);
                             System.out.println("____________________________________________________________");
                             System.out.println("Added the following task:");
                             System.out.println(deadline);
@@ -328,7 +328,7 @@ public class Iris {
 
                             Event event = new Event(description, startDate, endDate);
                             list.add(event);
-                            saveTasks(list);
+                            storage.save(list);
                             System.out.println("____________________________________________________________");
                             System.out.println("Added the following task:");
                             System.out.println(event);
