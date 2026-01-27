@@ -32,9 +32,8 @@ public class Iris {
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage(SAVE_FILE);
-        ArrayList<Task> list = storage.load();
+        TaskList list = new TaskList(storage.load());
         Ui ui = new Ui();
 
         ui.showWelcome();
@@ -86,8 +85,8 @@ public class Iris {
                             ui.showMessage("I don't think you can finish that task...");
                             ui.showLine();
                         } else {
-                            list.get(index).mark();
-                            storage.save(list);
+                            list.mark(index);
+                            storage.save(list.getAll());
                             ui.showLine();
                             ui.showMessage("Was just wondering when you were going to complete that...");
                             ui.showMessage("I've marked this task as done:");
@@ -120,8 +119,8 @@ public class Iris {
                                     "tasks that you have not told me about right?");
                             ui.showLine();
                         } else {
-                            list.get(index).unmark();
-                            storage.save(list);
+                            list.unmark(index);
+                            storage.save(list.getAll());
                             ui.showLine();
                             ui.showMessage("Looks like someone is slow... I have marked it as undone for you:");
                             ui.showMessage(list.get(index).toString());
@@ -158,7 +157,7 @@ public class Iris {
                             ui.showMessage("I have removed the following task:");
                             ui.showMessage(list.get(index).toString());
                             list.remove(index);
-                            storage.save(list);
+                            storage.save(list.getAll());
                             ui.showMessage("        Now you have " + list.size() + " tasks in the list.");
                             ui.showMessage("\nMore free time for you then... Enjoy.");
                             ui.showLine();
@@ -177,7 +176,7 @@ public class Iris {
 
                     ToDo todo = new ToDo(description);
                     list.add(todo);
-                    storage.save(list);
+                    storage.save(list.getAll());
                     ui.showLine();
                     ui.showMessage("Added the following task:");
                     ui.showMessage(todo.toString());
@@ -206,7 +205,7 @@ public class Iris {
 
                             Deadline deadline = new Deadline(description, date);
                             list.add(deadline);
-                            storage.save(list);
+                            storage.save(list.getAll());
                             ui.showLine();
                             ui.showMessage("Added the following task:");
                             ui.showMessage(deadline.toString());
@@ -251,7 +250,7 @@ public class Iris {
 
                             Event event = new Event(description, startDate, endDate);
                             list.add(event);
-                            storage.save(list);
+                            storage.save(list.getAll());
                             ui.showLine();
                             ui.showMessage("Added the following task:");
                             ui.showMessage(event.toString());
