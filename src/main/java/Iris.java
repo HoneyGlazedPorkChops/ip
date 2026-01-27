@@ -10,73 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class Iris {
-    private static final DateTimeFormatter SAVE_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
     private static final String SAVE_FILE = "tasks.txt";
-
-//    private static void saveTasks(ArrayList<Task> list) {
-//        try (PrintWriter pw = new PrintWriter(new FileWriter(SAVE_FILE))) {
-//            for (Task t : list) {
-//                pw.println(t.toSaveString());
-//            }
-//        } catch (IOException e) {
-//            System.out.println("Error saving tasks.");
-//        }
-//    }
-
-//    private static void loadTasks(ArrayList<Task> list) {
-//        File file = new File(SAVE_FILE);
-//        if (!file.exists()) {
-//            return;
-//        }
-//
-//        try (Scanner sc = new Scanner(file)) {
-//            while (sc.hasNextLine()) {
-//                String line = sc.nextLine();
-//                Task t = parseTask(line);
-//                if (t != null) {
-//                    list.add(t);
-//                }
-//            }
-//        } catch (IOException e) {
-//            System.out.println("It appears there was an error when loading saved tasks...");
-//        }
-//    }
-//
-//    private static Task parseTask(String line) {
-//        try {
-//            String[] parts = line.split("\\|");
-//
-//            String type = parts[0].trim();
-//            boolean done = parts[1].trim().equals("1");
-//
-//            Task t = null;
-//
-//            switch (type) {
-//                case "TODO" -> t = new ToDo(parts[2].trim());
-//                case "DEADLINE" -> {
-//                    LocalDateTime by = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
-//                    t = new Deadline(parts[2].trim(), by);
-//                }
-//                case "EVENT" -> {
-//                    LocalDateTime from = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
-//                    LocalDateTime to = LocalDateTime.parse(parts[4].trim(), SAVE_FMT);
-//                    t = new Event(parts[2].trim(), from, to);
-//                }
-//            }
-//
-//            if (done && t != null) {
-//                t.mark();
-//            }
-//
-//            return t;
-//
-//        } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-//            System.out.println("⚠ Warning: Skipped corrupted save line:");
-//            System.out.println("    " + line);
-//            return null;
-//        }
-//    }
 
     private static LocalDateTime parseDateTime(String input) {
         DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -101,47 +35,36 @@ public class Iris {
         Scanner scanner = new Scanner(System.in);
         Storage storage = new Storage(SAVE_FILE);
         ArrayList<Task> list = storage.load();
+        Ui ui = new Ui();
 
-        System.out.println("""
-                ____________________________________________________________
-                Hello! I'm Iris
-                What can I do for you?
-                ____________________________________________________________
-                """
-        );
+        ui.showWelcome();
 
         while (true) {
             try {
-                System.out.print("What would you like me to do?:\n");
-
-                String input = scanner.nextLine().trim();
+                String input = ui.readCommand();
 
                 boolean handled = false;
 
                 if (input.equalsIgnoreCase("Bye")) {
                     handled = true;
-                    System.out.println("""
-                            ____________________________________________________________
-                            Bye. Hope to see you again soon!
-                            ____________________________________________________________"""
-                    );
+                    ui.showBye();
                     break;
                 }
 
                 if (input.equalsIgnoreCase("list")) {
                     handled = true;
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Here are the tasks in your list");
+                    ui.showLine();
+                    ui.showMessage("Here are the tasks in your list");
                     for (int i = 0; i < list.size(); i++) {
-                        System.out.println((i + 1) + ". " + list.get(i).toString());
+                        ui.showMessage((i + 1) + ". " + list.get(i).toString());
                     }
 
                     if (list.size() > 4) {
-                        System.out.println("\nAre you that busy or do you just like to procrastinate?");
+                        ui.showMessage("\nAre you that busy or do you just like to procrastinate?");
                     } else {
-                        System.out.println("\nLight work... Hopefully right?");
+                        ui.showMessage("\nLight work... Hopefully right?");
                     }
-                    System.out.println("____________________________________________________________");
+                    ui.showLine();
                     continue;
                 }
 
@@ -149,34 +72,34 @@ public class Iris {
                     handled = true;
                     String[] parts = input.split("\\s+");
                     if (parts.length != 2) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("I advise you to stop speaking gibberish");
-                        System.out.println("____________________________________________________________");
+                        ui.showLine();
+                        ui.showMessage("I advise you to stop speaking gibberish");
+                        ui.showLine();
                         continue;
                     }
                     try {
                         int index = Integer.parseInt(parts[1]) - 1;
                         if (index < 0 || index >= list.size()) {
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Getting overzealous now are we? Unless " +
+                            ui.showLine();
+                            ui.showMessage("Getting overzealous now are we? Unless " +
                                     "you can read the future,");
-                            System.out.println("I don't think you can finish that task...");
-                            System.out.println("____________________________________________________________");
+                            ui.showMessage("I don't think you can finish that task...");
+                            ui.showLine();
                         } else {
                             list.get(index).mark();
                             storage.save(list);
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Was just wondering when you were going to complete that...");
-                            System.out.println("I've marked this task as done:");
-                            System.out.println(list.get(index).toString());
-                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                            System.out.println("\nMove on, I'm not here to give out rewards");
-                            System.out.println("____________________________________________________________");
+                            ui.showLine();
+                            ui.showMessage("Was just wondering when you were going to complete that...");
+                            ui.showMessage("I've marked this task as done:");
+                            ui.showMessage(list.get(index).toString());
+                            ui.showMessage("        Now you have " + list.size() + " tasks in the list.");
+                            ui.showMessage("\nMove on, I'm not here to give out rewards");
+                            ui.showLine();
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("One of us just made an error and I'm sure it wasn't me");
-                        System.out.println("____________________________________________________________");
+                        ui.showLine();
+                        ui.showMessage("One of us just made an error and I'm sure it wasn't me");
+                        ui.showLine();
                     }
                 }
 
@@ -184,32 +107,32 @@ public class Iris {
                     handled = true;
                     String[] parts = input.split("\\s+");
                     if (parts.length != 2) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("I advise you to stop speaking gibberish");
-                        System.out.println("____________________________________________________________");
+                        ui.showLine();
+                        ui.showMessage("I advise you to stop speaking gibberish");
+                        ui.showLine();
                         continue;
                     }
                     try {
                         int index = Integer.parseInt(parts[1]) - 1;
                         if (index < 0 || index >= list.size()) {
-                            System.out.println("____________________________________________________________");
-                            System.out.println("You do realize that I can't organize " +
+                            ui.showLine();
+                            ui.showMessage("You do realize that I can't organize " +
                                     "tasks that you have not told me about right?");
-                            System.out.println("____________________________________________________________");
+                            ui.showLine();
                         } else {
                             list.get(index).unmark();
                             storage.save(list);
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Looks like someone is slow... I have marked it as undone for you:");
-                            System.out.println(list.get(index).toString());
-                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                            System.out.println("\nWhat are you waiting for? Go on then.");
-                            System.out.println("____________________________________________________________");
+                            ui.showLine();
+                            ui.showMessage("Looks like someone is slow... I have marked it as undone for you:");
+                            ui.showMessage(list.get(index).toString());
+                            ui.showMessage("        Now you have " + list.size() + " tasks in the list.");
+                            ui.showMessage("\nWhat are you waiting for? Go on then.");
+                            ui.showLine();
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("One of us just made an error and I'm sure it wasn't me");
-                        System.out.println("____________________________________________________________");
+                        ui.showLine();
+                        ui.showMessage("One of us just made an error and I'm sure it wasn't me");
+                        ui.showLine();
                     }
                 }
 
@@ -217,33 +140,33 @@ public class Iris {
                     handled = true;
                     String[] parts = input.split("\\s+");
                     if (parts.length != 2) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("I advise you to stop speaking gibberish");
-                        System.out.println("____________________________________________________________");
+                        ui.showLine();
+                        ui.showMessage("I advise you to stop speaking gibberish");
+                        ui.showLine();
                         continue;
                     }
                     try {
                         int index = Integer.parseInt(parts[1]) - 1;
                         if (index < 0 || index >= list.size()) {
-                            System.out.println("____________________________________________________________");
-                            System.out.println("It appears that you are lacking a frontal lobe and have");
-                            System.out.println("asked me to remove something that has not yet existed...");
-                            System.out.println("____________________________________________________________");
+                            ui.showLine();
+                            ui.showMessage("It appears that you are lacking a frontal lobe and have");
+                            ui.showMessage("asked me to remove something that has not yet existed...");
+                            ui.showLine();
                         } else {
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Here I was beginning to think you have forgotten about this...");
-                            System.out.println("I have removed the following task:");
-                            System.out.println(list.get(index).toString());
+                            ui.showLine();
+                            ui.showMessage("Here I was beginning to think you have forgotten about this...");
+                            ui.showMessage("I have removed the following task:");
+                            ui.showMessage(list.get(index).toString());
                             list.remove(index);
                             storage.save(list);
-                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                            System.out.println("\nMore free time for you then... Enjoy.");
-                            System.out.println("____________________________________________________________");
+                            ui.showMessage("        Now you have " + list.size() + " tasks in the list.");
+                            ui.showMessage("\nMore free time for you then... Enjoy.");
+                            ui.showLine();
                         }
                     } catch (NumberFormatException e) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("One of us just made an error and I'm sure it wasn't me");
-                        System.out.println("____________________________________________________________");
+                        ui.showLine();
+                        ui.showMessage("One of us just made an error and I'm sure it wasn't me");
+                        ui.showLine();
                     }
                 }
 
@@ -255,12 +178,12 @@ public class Iris {
                     ToDo todo = new ToDo(description);
                     list.add(todo);
                     storage.save(list);
-                    System.out.println("____________________________________________________________");
-                    System.out.println("Added the following task:");
-                    System.out.println(todo);
-                    System.out.println("Better get it done early... or you could just be lazy");
-                    System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                    System.out.println("____________________________________________________________");
+                    ui.showLine();
+                    ui.showMessage("Added the following task:");
+                    ui.showMessage(todo.toString());
+                    ui.showMessage("Better get it done early... or you could just be lazy");
+                    ui.showMessage("        Now you have " + list.size() + " tasks in the list.");
+                    ui.showLine();
                 }
 
                 if (input.toLowerCase().startsWith("deadline ")) {
@@ -271,9 +194,9 @@ public class Iris {
                     int byIndex = rest.toLowerCase().lastIndexOf(" /by ");
 
                     if (byIndex == -1) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("I'm not omniscient you know? Give me more details.");
-                        System.out.println("____________________________________________________________");
+                        ui.showLine();
+                        ui.showMessage("I'm not omniscient you know? Give me more details.");
+                        ui.showLine();
                     } else {
                         String description = rest.substring(0, byIndex).trim();
                         String dateString = rest.substring(byIndex + 5).trim();
@@ -284,18 +207,18 @@ public class Iris {
                             Deadline deadline = new Deadline(description, date);
                             list.add(deadline);
                             storage.save(list);
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Added the following task:");
-                            System.out.println(deadline);
-                            System.out.println("It is called a Deadline for a reason, better hurry up");
-                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                            System.out.println("____________________________________________________________");
+                            ui.showLine();
+                            ui.showMessage("Added the following task:");
+                            ui.showMessage(deadline.toString());
+                            ui.showMessage("It is called a Deadline for a reason, better hurry up");
+                            ui.showMessage("        Now you have " + list.size() + " tasks in the list.");
+                            ui.showLine();
 
                         } catch (DateTimeParseException e) {
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Losing a few screws? That date doesn't exist in this universe.");
-                            System.out.println("Use format YYYY-MM-DD or YYYY-MM-DD HH:MM");
-                            System.out.println("____________________________________________________________");
+                            ui.showLine();
+                            ui.showMessage("Losing a few screws? That date doesn't exist in this universe.");
+                            ui.showMessage("Use format YYYY-MM-DD or YYYY-MM-DD HH:MM");
+                            ui.showLine();
                         }
                     }
                 }
@@ -309,9 +232,9 @@ public class Iris {
                     int toIndex = rest.toLowerCase().lastIndexOf(" /to ");
 
                     if (fromIndex == -1 || toIndex == -1 || toIndex < fromIndex) {
-                        System.out.println("____________________________________________________________");
-                        System.out.println("Did you develop dementia? You missed out some crucial information!");
-                        System.out.println("____________________________________________________________");
+                        ui.showLine();
+                        ui.showMessage("Did you develop dementia? You missed out some crucial information!");
+                        ui.showLine();
                     } else {
                         String description = rest.substring(0, fromIndex).trim();
                         String start = rest.substring(fromIndex + 7, toIndex).trim();
@@ -322,24 +245,24 @@ public class Iris {
                             LocalDateTime endDate = parseDateTime(end);
 
                             if (endDate.isBefore(startDate)) {
-                                System.out.println("End date cannot be before start date.");
+                                ui.showMessage("End date cannot be before start date.");
                                 continue;
                             }
 
                             Event event = new Event(description, startDate, endDate);
                             list.add(event);
                             storage.save(list);
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Added the following task:");
-                            System.out.println(event);
-                            System.out.println("Sounds like fun... or a chore...");
-                            System.out.println("        Now you have " + list.size() + " tasks in the list.");
-                            System.out.println("____________________________________________________________");
+                            ui.showLine();
+                            ui.showMessage("Added the following task:");
+                            ui.showMessage(event.toString());
+                            ui.showMessage("Sounds like fun... or a chore...");
+                            ui.showMessage("        Now you have " + list.size() + " tasks in the list.");
+                            ui.showLine();
                         } catch (DateTimeParseException e) {
-                            System.out.println("____________________________________________________________");
-                            System.out.println("Please abide by the standard format or else...");
-                            System.out.println("Invalid date format. Use YYYY-MM-DD or YYYY-MM-DD HH:MM");
-                            System.out.println("____________________________________________________________");
+                            ui.showLine();
+                            ui.showMessage("Please abide by the standard format or else...");
+                            ui.showMessage("Invalid date format. Use YYYY-MM-DD or YYYY-MM-DD HH:MM");
+                            ui.showLine();
                         }
                     }
                 }
@@ -430,14 +353,12 @@ public class Iris {
                 }
 
             } catch (IrisException e) {
-                System.out.println("____________________________________________________________");
-                System.out.println(e.getMessage());
-                System.out.println("Has your age finally caught up with you? I need a valid command.");
-                System.out.println("____________________________________________________________");
+                ui.showLine();
+                ui.showError(e.getMessage());
+                ui.showMessage("Has your age finally caught up with you? I need a valid command.");
+                ui.showLine();
             }
         }
-
-        scanner.close();
     }
 }
 

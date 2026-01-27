@@ -1,24 +1,24 @@
 ____________________________________________________________
-Hello! I'm Iris
-What can I do for you?
+ Hello! I'm Iris
+ What can I do for you?
 ____________________________________________________________
 
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Added the following task:
 [D][ ] return book (by: 2019-10-15 00:00) ⚠ OVERDUE
 It is called a Deadline for a reason, better hurry up
         Now you have 1 tasks in the list.
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Added the following task:
 [E][ ] project meeting (from: 2030-12-02 16:00 to: 2030-12-03 18:00)
 Sounds like fun... or a chore...
         Now you have 2 tasks in the list.
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Here are the tasks in your list
 1. [D][ ] return book (by: 2019-10-15 00:00) ⚠ OVERDUE
 2. [E][ ] project meeting (from: 2030-12-02 16:00 to: 2030-12-03 18:00)
@@ -26,7 +26,7 @@ Here are the tasks in your list
 Light work... Hopefully right?
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Was just wondering when you were going to complete that...
 I've marked this task as done:
 [D][X] return book (by: 2019-10-15 00:00)
@@ -35,7 +35,7 @@ I've marked this task as done:
 Move on, I'm not here to give out rewards
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Looks like someone is slow... I have marked it as undone for you:
 [D][ ] return book (by: 2019-10-15 00:00) ⚠ OVERDUE
         Now you have 2 tasks in the list.
@@ -43,70 +43,74 @@ Looks like someone is slow... I have marked it as undone for you:
 What are you waiting for? Go on then.
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
-Getting overzealous now are we? Unless you can read the future,
-I don't think you can finish that task...
-____________________________________________________________
-What would you like me to do?:
-____________________________________________________________
-One of us just made an error and I'm sure it wasn't me
-____________________________________________________________
-What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Added the following task:
 [T][ ] tutorial homework
 Better get it done early... or you could just be lazy
         Now you have 3 tasks in the list.
 ____________________________________________________________
 What would you like me to do?:
+> ____________________________________________________________
+Was just wondering when you were going to complete that...
+I've marked this task as done:
+[T][X] tutorial homework
+        Now you have 3 tasks in the list.
+
+Move on, I'm not here to give out rewards
 ____________________________________________________________
+What would you like me to do?:
+> ____________________________________________________________
+One of us just made an error and I'm sure it wasn't me
+____________________________________________________________
+What would you like me to do?:
+> ____________________________________________________________
 I'm not omniscient you know? Give me more details.
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Added the following task:
 [D][ ] assignment (by: 2027-03-19 23:59)
 It is called a Deadline for a reason, better hurry up
         Now you have 4 tasks in the list.
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Did you develop dementia? You missed out some crucial information!
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Added the following task:
 [E][ ] family dinner (from: 2026-02-03 17:30 to: 2026-02-03 19:00)
 Sounds like fun... or a chore...
         Now you have 5 tasks in the list.
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Here are the tasks in your list
 1. [D][ ] return book (by: 2019-10-15 00:00) ⚠ OVERDUE
 2. [E][ ] project meeting (from: 2030-12-02 16:00 to: 2030-12-03 18:00)
-3. [T][ ] tutorial homework
+3. [T][X] tutorial homework
 4. [D][ ] assignment (by: 2027-03-19 23:59)
 5. [E][ ] family dinner (from: 2026-02-03 17:30 to: 2026-02-03 19:00)
 
 Are you that busy or do you just like to procrastinate?
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 It appears that you are lacking a frontal lobe and have
 asked me to remove something that has not yet existed...
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 Here I was beginning to think you have forgotten about this...
 I have removed the following task:
-[T][ ] tutorial homework
+[T][X] tutorial homework
         Now you have 4 tasks in the list.
 
 More free time for you then... Enjoy.
 ____________________________________________________________
 What would you like me to do?:
-____________________________________________________________
+> ____________________________________________________________
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNXOl'...''..   ......................          .,o0NNNNNNNNNNNNNNNNNNN
 NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNKd,.  ....      .......................    .     .;xXNNNNNNNNNNNNNNNNN
 NNNNNNNNNNNNNNNNNNNWNNNNNNNNNNNNNNNNNNNNNNNNNNNNWWWWWWWWNNNNNNNNNNNNNNNNWWNWWWNKl.    .............',''......    .......           .oKNWWWWWWWWWNNNNNW
@@ -191,6 +195,7 @@ WWWWWWWWWWWWWWWWWWWWWWWWWWWWWO;.   ..;:;;;;;;;;;;;;;,,.             ,oddooodddol
 Has your age finally caught up with you? I need a valid command.
 ____________________________________________________________
 What would you like me to do?:
+> ____________________________________________________________
+ Bye. Hope to see you again soon!
 ____________________________________________________________
-Bye. Hope to see you again soon!
-____________________________________________________________
+
