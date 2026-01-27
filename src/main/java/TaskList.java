@@ -11,18 +11,22 @@ public class TaskList {
         tasks.add(t);
     }
 
-    public void remove(int index) {
+    public Task remove(int index) {
+        Task task = tasks.get(index);
         tasks.remove(index);
+        return task;
     }
 
-    public void mark(int index) {
+    public Task mark(int index) {
         Task t = tasks.get(index);
         t.mark();
+        return t;
     }
 
-    public void unmark(int index) {
+    public Task unmark(int index) {
         Task t = tasks.get(index);
         t.unmark();
+        return t;
     }
 
     public Task get(int index) {

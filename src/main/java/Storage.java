@@ -16,7 +16,7 @@ public class Storage {
         this.filePath = fileName;
     }
 
-    public ArrayList<Task> load() {
+    public ArrayList<Task> load() throws IrisException {
         File file = new File(this.filePath);
         ArrayList<Task> list = new ArrayList<Task>();
 
@@ -33,7 +33,7 @@ public class Storage {
                 }
             }
         } catch (IOException e) {
-            System.out.println("It appears there was an error when loading saved tasks...");
+            throw new IrisException("It appears there was an error when loading saved tasks...");
         }
 
         return list;
