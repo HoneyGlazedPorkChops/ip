@@ -1,3 +1,5 @@
+package iris.ui;
+
 import java.util.Scanner;
 
 public class Ui {

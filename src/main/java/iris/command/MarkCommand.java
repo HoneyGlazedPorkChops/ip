@@ -1,3 +1,9 @@
+package iris.command;
+
+import iris.task.TaskList;
+import iris.storage.Storage;
+import iris.ui.Ui;
+
 public class MarkCommand extends Command {
     private final int index;
 

@@ -1,3 +1,10 @@
+package iris.command;
+
+import iris.task.TaskList;
+import iris.storage.Storage;
+import iris.task.Event;
+import iris.ui.Ui;
+
 import java.time.LocalDateTime;
 
 public class EventCommand extends Command {
