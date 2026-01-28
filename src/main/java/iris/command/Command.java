@@ -1,3 +1,9 @@
+package iris.command;
+
+import iris.task.TaskList;
+import iris.storage.Storage;
+import iris.ui.Ui;
+
 public abstract class Command {
     protected boolean isExit = false;
 
