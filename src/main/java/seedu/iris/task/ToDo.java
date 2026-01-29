@@ -1,4 +1,4 @@
-package iris.task;
+package seedu.iris.task;
 
 public class ToDo extends Task {
     public ToDo(String description) {

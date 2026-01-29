@@ -1,7 +1,7 @@
-package iris.parser;
+package seedu.iris.parser;
 
-import iris.command.*;
-import iris.exception.IrisException;
+import seedu.iris.command.*;
+import seedu.iris.exception.IrisException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

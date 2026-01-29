@@ -1,9 +1,9 @@
-package iris.command;
+package seedu.iris.command;
 
-import iris.task.TaskList;
-import iris.storage.Storage;
-import iris.task.ToDo;
-import iris.ui.Ui;
+import seedu.iris.task.TaskList;
+import seedu.iris.storage.Storage;
+import seedu.iris.task.ToDo;
+import seedu.iris.ui.Ui;
 
 public class TodoCommand extends Command {
     private final String description;

@@ -1,4 +1,4 @@
-package iris.task;
+package seedu.iris.task;
 
 import java.util.ArrayList;
 

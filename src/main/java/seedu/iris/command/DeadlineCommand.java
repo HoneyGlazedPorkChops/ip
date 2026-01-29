@@ -1,9 +1,9 @@
-package iris.command;
+package seedu.iris.command;
 
-import iris.task.TaskList;
-import iris.storage.Storage;
-import iris.task.Deadline;
-import iris.ui.Ui;
+import seedu.iris.task.TaskList;
+import seedu.iris.storage.Storage;
+import seedu.iris.task.Deadline;
+import seedu.iris.ui.Ui;
 
 import java.time.LocalDateTime;
 

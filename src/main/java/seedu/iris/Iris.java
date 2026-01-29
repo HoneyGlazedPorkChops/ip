@@ -1,11 +1,11 @@
-package iris;
+package seedu.iris;
 
-import iris.command.Command;
-import iris.exception.IrisException;
-import iris.parser.Parser;
-import iris.storage.Storage;
-import iris.task.TaskList;
-import iris.ui.Ui;
+import seedu.iris.command.Command;
+import seedu.iris.exception.IrisException;
+import seedu.iris.parser.Parser;
+import seedu.iris.storage.Storage;
+import seedu.iris.task.TaskList;
+import seedu.iris.ui.Ui;
 
 public class Iris {
     private Storage storage;

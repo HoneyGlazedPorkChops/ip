@@ -1,10 +1,10 @@
-package iris.storage;
+package seedu.iris.storage;
 
-import iris.exception.IrisException;
-import iris.task.Deadline;
-import iris.task.Event;
-import iris.task.Task;
-import iris.task.ToDo;
+import seedu.iris.exception.IrisException;
+import seedu.iris.task.Deadline;
+import seedu.iris.task.Event;
+import seedu.iris.task.Task;
+import seedu.iris.task.ToDo;
 
 import java.io.File;
 import java.io.FileWriter;

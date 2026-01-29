@@ -1,4 +1,4 @@
-package iris.ui;
+package seedu.iris.ui;
 
 import java.util.Scanner;
 
