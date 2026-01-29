@@ -93,16 +93,16 @@ public class Storage {
             Task t = null;
 
             switch (type) {
-                case "TODO" -> t = new ToDo(parts[2].trim());
-                case "DEADLINE" -> {
-                    LocalDateTime by = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
-                    t = new Deadline(parts[2].trim(), by);
-                }
-                case "EVENT" -> {
-                    LocalDateTime from = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
-                    LocalDateTime to = LocalDateTime.parse(parts[4].trim(), SAVE_FMT);
-                    t = new Event(parts[2].trim(), from, to);
-                }
+            case "TODO" -> t = new ToDo(parts[2].trim());
+            case "DEADLINE" -> {
+                LocalDateTime by = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
+                t = new Deadline(parts[2].trim(), by);
+            }
+            case "EVENT" -> {
+                LocalDateTime from = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
+                LocalDateTime to = LocalDateTime.parse(parts[4].trim(), SAVE_FMT);
+                t = new Event(parts[2].trim(), from, to);
+            }
             }
 
             if (done && t != null) {
