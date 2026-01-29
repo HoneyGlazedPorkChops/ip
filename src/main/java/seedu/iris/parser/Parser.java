@@ -118,6 +118,15 @@ public class Parser {
             }
         }
 
+        if (input.startsWith("find ")) {
+            String keyword = input.substring(5).trim();
+            if (keyword.isEmpty()) {
+                throw new IrisException("Find what?");
+            }
+            return new FindCommand(keyword);
+        }
+
+
         throw new IrisException("""
                             NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNXOl'...''..   ......................          .,o0NNNNNNNNNNNNNNNNNNN
                             NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNKd,.  ....      .......................    .     .;xXNNNNNNNNNNNNNNNNN
