@@ -16,14 +16,33 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Handles loading and saving of tasks to persistent storage.
+ * <p>
+ * Tasks are stored in a plain text file, with one task per line.
+ * Each line can be converted back into a {@link Task} using the parser.
+ */
 public class Storage {
     private static final DateTimeFormatter SAVE_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final String filePath;
 
+    /**
+     * Creates a storage object that reads from and writes to the given file.
+     *
+     * @param fileName the path to the file used for saving tasks
+     */
     public Storage(String fileName) {
         this.filePath = fileName;
     }
 
+    /**
+     * Loads all saved tasks from the storage file.
+     * <p>
+     * If the file does not exist, an empty task list is returned.
+     *
+     * @return a list of tasks loaded from disk
+     * @throws IrisException if the file exists but cannot be read or parsed
+     */
     public ArrayList<Task> load() throws IrisException {
         File file = new File(this.filePath);
         ArrayList<Task> list = new ArrayList<Task>();
@@ -47,6 +66,13 @@ public class Storage {
         return list;
     }
 
+    /**
+     * Saves all tasks to the storage file.
+     * <p>
+     * Existing file contents will be overwritten.
+     *
+     * @param tasks the list of tasks to save
+     */
     public void save(ArrayList<Task> tasks) {
         try (PrintWriter pw = new PrintWriter(new FileWriter(this.filePath))) {
             for (Task t : tasks) {
