@@ -8,7 +8,17 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Converts raw user input into executable commands.
+ */
 public class Parser {
+    /**
+     * Parses a single line of user input into a {@link Command}.
+     *
+     * @param input the raw user input
+     * @return a command object representing the user's request
+     * @throws IrisException if the input is not a valid command
+     */
     public static Command parse(String input) throws IrisException {
 
         if (input.equalsIgnoreCase("bye")) {
