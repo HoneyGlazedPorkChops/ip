@@ -1,4 +1,4 @@
-package iris.exception;
+package seedu.iris.exception;
 
 public class IrisException extends Exception {
     public IrisException(String message) {

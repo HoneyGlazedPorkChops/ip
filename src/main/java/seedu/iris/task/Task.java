@@ -1,4 +1,4 @@
-package iris.task;
+package seedu.iris.task;
 
 public abstract class Task {
     protected String description;
