@@ -1,12 +1,21 @@
 package seedu.iris.parser;
 
-import seedu.iris.command.*;
-import seedu.iris.exception.IrisException;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import seedu.iris.command.ByeCommand;
+import seedu.iris.command.Command;
+import seedu.iris.command.DeadlineCommand;
+import seedu.iris.command.DeleteCommand;
+import seedu.iris.command.EventCommand;
+import seedu.iris.command.FindCommand;
+import seedu.iris.command.ListCommand;
+import seedu.iris.command.MarkCommand;
+import seedu.iris.command.TodoCommand;
+import seedu.iris.command.UnmarkCommand;
+import seedu.iris.exception.IrisException;
 
 /**
  * Converts raw user input into executable commands.
@@ -19,6 +28,7 @@ public class Parser {
      * @return a command object representing the user's request
      * @throws IrisException if the input is not a valid command
      */
+    @SuppressWarnings("checkstyle:LineLength")
     public static Command parse(String input) throws IrisException {
 
         if (input.equalsIgnoreCase("bye")) {
@@ -83,14 +93,14 @@ public class Parser {
             if (byIndex == -1) {
                 throw new IrisException("I'm not omniscient you know? Give me more details.");
             } else {
-                try{
+                try {
                     String description = rest.substring(0, byIndex).trim();
                     String dateString = rest.substring(byIndex + 5).trim();
                     LocalDateTime date = parseDateTime(dateString);
                     return new DeadlineCommand(description, date);
                 } catch (DateTimeParseException e) {
                     throw new IrisException("Losing a few screws? That date doesn't exist in this universe.\n"
-                    + "Use format YYYY-MM-DD or YYYY-MM-DD HH:MM");
+                            + "Use format YYYY-MM-DD or YYYY-MM-DD HH:MM");
                 }
             }
         }
@@ -113,7 +123,7 @@ public class Parser {
                     return new EventCommand(description, startDate, endDate);
                 } catch (DateTimeParseException e) {
                     throw new IrisException("Please abide by the standard format or else...\n"
-                    + "Invalid date format. Use YYYY-MM-DD or YYYY-MM-DD HH:MM");
+                            + "Invalid date format. Use YYYY-MM-DD or YYYY-MM-DD HH:MM");
                 }
             }
         }

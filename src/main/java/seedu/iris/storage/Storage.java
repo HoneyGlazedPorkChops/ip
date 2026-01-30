@@ -1,20 +1,20 @@
 package seedu.iris.storage;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import seedu.iris.exception.IrisException;
 import seedu.iris.task.Deadline;
 import seedu.iris.task.Event;
 import seedu.iris.task.Task;
 import seedu.iris.task.ToDo;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Handles loading and saving of tasks to persistent storage.
@@ -93,16 +93,20 @@ public class Storage {
             Task t = null;
 
             switch (type) {
-            case "TODO" -> t = new ToDo(parts[2].trim());
-            case "DEADLINE" -> {
+            case "TODO":
+                t = new ToDo(parts[2].trim());
+                break;
+            case "DEADLINE":
                 LocalDateTime by = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
                 t = new Deadline(parts[2].trim(), by);
-            }
-            case "EVENT" -> {
+                break;
+            case "EVENT":
                 LocalDateTime from = LocalDateTime.parse(parts[3].trim(), SAVE_FMT);
                 LocalDateTime to = LocalDateTime.parse(parts[4].trim(), SAVE_FMT);
                 t = new Event(parts[2].trim(), from, to);
-            }
+                break;
+            default:
+                break;
             }
 
             if (done && t != null) {

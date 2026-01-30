@@ -1,7 +1,7 @@
 package seedu.iris.command;
 
-import seedu.iris.task.TaskList;
 import seedu.iris.storage.Storage;
+import seedu.iris.task.TaskList;
 import seedu.iris.task.ToDo;
 import seedu.iris.ui.Ui;
 
