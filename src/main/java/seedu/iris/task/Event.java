@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
  * Represents an event that occurs within a specific time period.
  */
 public class Event extends Task {
+    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected LocalDateTime from;
     protected LocalDateTime to;
-    private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Creates an event with a start and end time.
@@ -40,10 +40,9 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String status = isOver() ? " OVER :(" : "";
-        return "[E]" + super.toString() +
-                " (from: " + from.format(fmt) + " to: " + to.format(fmt) + ")" + status;
+        return "[E]" + super.toString() + " (from: "
+                + from.format(FORMAT) + " to: " + to.format(FORMAT) + ")" + status;
     }
 
     /**
@@ -54,6 +53,6 @@ public class Event extends Task {
     @Override
     public String toSaveString() {
         return "EVENT | " + (isDone ? "1" : "0") + " | " + description + " | "
-                + from.format(fmt) + " | " + to.format(fmt);
+                + from.format(FORMAT) + " | " + to.format(FORMAT);
     }
 }

@@ -1,10 +1,11 @@
 package seedu.iris.command;
 
+import java.util.ArrayList;
+
 import seedu.iris.storage.Storage;
 import seedu.iris.task.Task;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
-import java.util.ArrayList;
 
 public class FindCommand extends Command {
     private final String keyword;
@@ -18,8 +19,8 @@ public class FindCommand extends Command {
         ArrayList<Task> matches = tasks.find(keyword);
 
         if (matches.isEmpty()) {
-            ui.showMessage("Doctor Strange searched the multiverse and " +
-                    "could not find a single universe where such task exists...");
+            ui.showMessage("Doctor Strange searched the multiverse and "
+                    + "could not find a single universe where such task exists...");
             return;
         }
 

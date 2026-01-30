@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
  * Represents a task that must be completed by a specific date and time.
  */
 public class Deadline extends Task {
+    private static final DateTimeFormatter FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     protected LocalDateTime by;
-    private static final DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     /**
      * Creates a deadline task with the given description and due date.
@@ -38,7 +38,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         String status = isOverdue() ? " ⚠ OVERDUE" : "";
-        return "[D]" + super.toString() + " (by: " + by.format(fmt) + ")" + status;
+        return "[D]" + super.toString() + " (by: " + by.format(FORMAT) + ")" + status;
     }
 
     /**
@@ -49,6 +49,6 @@ public class Deadline extends Task {
     @Override
     public String toSaveString() {
         return "DEADLINE | " + (isDone ? "1" : "0") + " | " + description
-                + " | " + by.format(fmt);
+                + " | " + by.format(FORMAT);
     }
 }

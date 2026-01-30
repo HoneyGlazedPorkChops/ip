@@ -1,11 +1,11 @@
 package seedu.iris.command;
 
-import seedu.iris.task.TaskList;
+import java.time.LocalDateTime;
+
 import seedu.iris.storage.Storage;
 import seedu.iris.task.Event;
+import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
-
-import java.time.LocalDateTime;
 
 public class EventCommand extends Command {
     private final String description;
