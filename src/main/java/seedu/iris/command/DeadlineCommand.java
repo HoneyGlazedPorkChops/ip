@@ -17,15 +17,12 @@ public class DeadlineCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(description, by);
         tasks.add(deadline);
         storage.save(tasks.getAll());
-        ui.showLine();
-        ui.showMessage("Added the following task:");
-        ui.showMessage(deadline.toString());
-        ui.showMessage("It is called a Deadline for a reason, better hurry up");
-        ui.showMessage("        Now you have " + tasks.size() + " tasks in the list.");
-        ui.showLine();
+        return "Added the following task:\n" + deadline.toString()
+                + "\nIt is called a Deadline for a reason, better hurry up\n"
+                + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n";
     }
 }

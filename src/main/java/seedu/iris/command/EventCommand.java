@@ -19,15 +19,12 @@ public class EventCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = new Event(description, start, end);
         tasks.add(event);
         storage.save(tasks.getAll());
-        ui.showLine();
-        ui.showMessage("Added the following task:");
-        ui.showMessage(event.toString());
-        ui.showMessage("Sounds like fun... or a chore...");
-        ui.showMessage("        Now you have " + tasks.size() + " tasks in the list.");
-        ui.showLine();
+        return "Added the following task:\n" + event.toString()
+                + "\n\n like fun... or a chore...\n"
+                + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n";
     }
 }

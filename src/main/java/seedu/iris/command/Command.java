@@ -29,5 +29,5 @@ public abstract class Command {
      * @param ui      the user interface
      * @param storage the storage used for saving tasks
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
 }

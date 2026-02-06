@@ -23,26 +23,30 @@ public class Ui {
                 """);
     }
 
-    public void showBye() {
-        System.out.println("""
+    public String getWelcome() {
+        return """
+                ____________________________________________________________
+                 Hello! I'm Iris
+                 What can I do for you?
+                ____________________________________________________________
+                """;
+    }
+
+    public String getBye() {
+        return """
                 ____________________________________________________________
                  Bye. Hope to see you again soon!
                 ____________________________________________________________
-                """);
+                """;
     }
 
-    public void showMessage(String msg) {
-        System.out.println(msg);
+    public String showError(String message) {
+        return "____________________________________________________________\n"
+                + message + "\n____________________________________________________________";
     }
 
-    public void showError(String message) {
-        System.out.println("____________________________________________________________");
-        System.out.println(message);
-        System.out.println("____________________________________________________________");
-    }
-
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+    public String showLine() {
+        return "____________________________________________________________";
     }
 
 }

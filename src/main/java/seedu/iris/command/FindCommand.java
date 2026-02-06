@@ -15,18 +15,21 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> matches = tasks.find(keyword);
 
         if (matches.isEmpty()) {
-            ui.showMessage("Doctor Strange searched the multiverse and "
-                    + "could not find a single universe where such task exists...");
-            return;
+            return "Doctor Strange searched the multiverse and "
+                    + "could not find a single universe where such task exists...";
         }
 
-        ui.showMessage("Here are the matching tasks in your list:");
+        StringBuilder match = new StringBuilder();
+
         for (int i = 0; i < matches.size(); i++) {
-            ui.showMessage((i + 1) + ". " + matches.get(i));
+            match.append((matches.indexOf(matches.get(i)))).append(". ").append(matches.get(i)).append("\n");
         }
+
+        return "Here are the matching tasks in your list:\n"
+                + match;
     }
 }
