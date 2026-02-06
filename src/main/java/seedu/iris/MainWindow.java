@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import seedu.iris.exception.IrisException;
 import seedu.iris.exception.IrisInvalidException;
@@ -31,10 +33,17 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/user.jpg"));
     private Image irisImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/iris.jpg"));
     private Image errImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/stare.png"));
+    private Media bgm = new Media(this.getClass().getResource("/seedu/iris/music/bgm.mp3").toExternalForm());
+
+    private MediaPlayer mediaPlayer = new MediaPlayer(bgm);
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setVolume(0.2);
+        mediaPlayer.play();
+
         dialogContainer.getChildren().add(
                 DialogBox.getIrisDialog("""
                  Hello! I'm Iris
@@ -55,33 +64,49 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
 
-        try {
-            String response = iris.getResponse(input);
-
-            if (input.equals("bye")) {
-                PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
-                delay.setOnFinished(event -> Platform.exit());
-                delay.play();
-            }
-
+        if (input.equals("pause")) {
+            mediaPlayer.pause();
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getIrisDialog(response, irisImage)
+                    DialogBox.getIrisDialog("Music has been pause", irisImage)
             );
             userInput.clear();
-        } catch (IrisException e) {
-            String errMsg = e.getMessage();
-
-            dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getIrisDialog(errMsg, irisImage));
+        } else if (input.equals("resume")) {
+            mediaPlayer.play();
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getIrisDialog("Music has been resumed", irisImage)
+            );
             userInput.clear();
-        } catch (IrisInvalidException e) {
-            String errMsg = e.getMessage();
+        } else {
+            try {
+                String response = iris.getResponse(input);
 
-            dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getIrisDialog(errMsg, errImage, irisImage));
+                if (input.equals("bye")) {
+                    PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+                    delay.setOnFinished(event -> Platform.exit());
+                    delay.play();
+                }
 
-            userInput.clear();
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getIrisDialog(response, irisImage)
+                );
+                userInput.clear();
+            } catch (IrisException e) {
+                String errMsg = e.getMessage();
+
+                dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getIrisDialog(errMsg, irisImage));
+                userInput.clear();
+            } catch (IrisInvalidException e) {
+                String errMsg = e.getMessage();
+
+                dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
+                        DialogBox.getIrisDialog(errMsg, errImage, irisImage));
+
+                userInput.clear();
+            }
         }
     }
 }
