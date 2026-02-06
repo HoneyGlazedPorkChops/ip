@@ -6,20 +6,21 @@ import seedu.iris.ui.Ui;
 
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showLine();
-        ui.showMessage("Here are the tasks in your list:");
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
+        StringBuilder lst = new StringBuilder();
 
         for (int i = 0; i < tasks.size(); i++) {
-            ui.showMessage((i + 1) + ". " + tasks.get(i));
+            lst.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
+
+        String msg = "";
 
         if (tasks.size() > 4) {
-            ui.showMessage("\nAre you that busy or do you just like to procrastinate?");
+            msg = "\nAre you that busy or do you just like to procrastinate?";
         } else {
-            ui.showMessage("\nLight work... Hopefully right?");
+            msg = "\nLight work... Hopefully right?";
         }
 
-        ui.showLine();
+        return "Here are the tasks in your list:\n" + lst + msg;
     }
 }

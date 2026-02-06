@@ -2,6 +2,7 @@ package seedu.iris;
 
 import seedu.iris.command.Command;
 import seedu.iris.exception.IrisException;
+import seedu.iris.exception.IrisInvalidException;
 import seedu.iris.parser.Parser;
 import seedu.iris.storage.Storage;
 import seedu.iris.task.Task;
@@ -15,9 +16,17 @@ import seedu.iris.ui.Ui;
  * Each line can be converted back into a {@link Task} using the parser.
  */
 public class Iris {
+    private static final String DEFAULT_FILE = "tasks.txt";
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+
+    /**
+     * Constructs the Iris chatbot with the default save file.
+     */
+    public Iris() {
+        this(DEFAULT_FILE);
+    }
 
     /**
      * Constructs the Iris chatbot with the given save file.
@@ -34,6 +43,11 @@ public class Iris {
         }
     }
 
+    public String getResponse(String input) throws IrisInvalidException, IrisException {
+        Command c = Parser.parse(input);
+        return c.execute(tasks, ui, storage);
+    }
+
     /**
      * Starts the chatbot and runs the main command loop until the user exits.
      */
@@ -48,7 +62,7 @@ public class Iris {
                 if (c.isExit()) {
                     break;
                 }
-            } catch (IrisException e) {
+            } catch (IrisException | IrisInvalidException e) {
                 ui.showError(e.getMessage());
             }
         }

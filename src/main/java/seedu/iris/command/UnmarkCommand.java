@@ -12,21 +12,16 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (index < 0 || index >= tasks.size()) {
-            ui.showLine();
-            ui.showMessage("You do realize that I can't organize "
-                    + "tasks that you have not told me about right?");
-            ui.showLine();
+            return "You do realize that I can't organize "
+                    + "tasks that you have not told me about right?";
         } else {
             tasks.unmark(index);
             storage.save(tasks.getAll());
-            ui.showLine();
-            ui.showMessage("Looks like someone is slow... I have marked it as undone for you:");
-            ui.showMessage(tasks.get(index).toString());
-            ui.showMessage("        Now you have " + tasks.size() + " tasks in the list.");
-            ui.showMessage("\nWhat are you waiting for? Go on then.");
-            ui.showLine();
+            return "Looks like someone is slow... I have marked it as undone for you:\n"
+                    + tasks.get(index).toString() + "\n        Now you have " + tasks.size() + " tasks in the list."
+                    + "\n\nWhat are you waiting for? Go on then.";
         }
     }
 }

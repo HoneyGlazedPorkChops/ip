@@ -13,15 +13,12 @@ public class TodoCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         ToDo todo = new ToDo(description);
         tasks.add(todo);
         storage.save(tasks.getAll());
-        ui.showLine();
-        ui.showMessage("Added the following task:");
-        ui.showMessage(todo.toString());
-        ui.showMessage("Better get it done early... or you could just be lazy");
-        ui.showMessage("        Now you have " + tasks.size() + " tasks in the list.");
-        ui.showLine();
+        return "Added the following task:\n" + todo.toString()
+                + "\nBetter get it done early... or you could just be lazy"
+                + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n";
     }
 }

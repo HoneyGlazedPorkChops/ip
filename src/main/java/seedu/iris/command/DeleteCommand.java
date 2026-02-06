@@ -12,22 +12,20 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) {
         if (index < 0 || index >= tasks.size()) {
-            ui.showLine();
-            ui.showMessage("It appears that you are lacking a frontal lobe and have");
-            ui.showMessage("asked me to remove something that has not yet existed...");
-            ui.showLine();
+            return """
+                    It appears that you are lacking a frontal lobe and have
+                    asked me to remove something that has not yet existed...
+                    """;
         } else {
-            ui.showLine();
-            ui.showMessage("Here I was beginning to think you have forgotten about this...");
-            ui.showMessage("I have removed the following task:");
-            ui.showMessage(tasks.get(index).toString());
+            String msg = tasks.get(index).toString();
             tasks.remove(index);
             storage.save(tasks.getAll());
-            ui.showMessage("        Now you have " + tasks.size() + " tasks in the list.");
-            ui.showMessage("\nMore free time for you then... Enjoy.");
-            ui.showLine();
+            return "Here I was beginning to think you have forgotten about this...\n"
+                    + "I have removed the following task:\n"
+                    + msg + "\n        Now you have " + tasks.size() + " tasks in the list."
+                    + "\nMore free time for you then... Enjoy.";
         }
     }
 }
