@@ -65,6 +65,8 @@ public class TaskList {
      * @return the task at specified index
      */
     public Task get(int index) {
+        assert index >= 0;
+        assert index < tasks.size();
         return tasks.get(index);
     }
 

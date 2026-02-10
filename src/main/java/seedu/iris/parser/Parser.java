@@ -31,6 +31,9 @@ public class Parser {
      */
     @SuppressWarnings("checkstyle:LineLength")
     public static Command parse(String input) throws IrisException, IrisInvalidException {
+        String[] words = input.split(" ");
+
+        assert words.length > 0 : "Input must have at least one token";
 
         if (input.equalsIgnoreCase("bye")) {
             return new ByeCommand();

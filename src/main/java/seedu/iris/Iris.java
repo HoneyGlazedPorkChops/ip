@@ -57,6 +57,7 @@ public class Iris {
             try {
                 String input = ui.readCommand();
                 Command c = Parser.parse(input);
+                assert c != null : "Parser must always return a command";
                 c.execute(tasks, ui, storage);
 
                 if (c.isExit()) {
