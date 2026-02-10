@@ -1,6 +1,6 @@
 package seedu.iris.command;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.iris.storage.Storage;
 import seedu.iris.task.Task;
@@ -16,7 +16,8 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> matches = tasks.find(keyword);
+
+        List<Task> matches = tasks.find(keyword);
 
         if (matches.isEmpty()) {
             return "Doctor Strange searched the multiverse and "
