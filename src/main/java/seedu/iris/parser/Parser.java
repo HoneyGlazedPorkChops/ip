@@ -11,6 +11,7 @@ import seedu.iris.command.DeadlineCommand;
 import seedu.iris.command.DeleteCommand;
 import seedu.iris.command.EventCommand;
 import seedu.iris.command.FindCommand;
+import seedu.iris.command.HelpCommand;
 import seedu.iris.command.ListCommand;
 import seedu.iris.command.MarkCommand;
 import seedu.iris.command.TodoCommand;
@@ -140,6 +141,10 @@ public class Parser {
             }
 
             return new FindCommand(keyword);
+        }
+
+        if (input.startsWith("help")) {
+            return new HelpCommand();
         }
 
         throw new IrisInvalidException("Has your age finally caught up with you?\nI need a valid command!");
