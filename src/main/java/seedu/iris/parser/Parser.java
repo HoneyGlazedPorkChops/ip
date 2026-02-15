@@ -127,6 +127,12 @@ public class Parser {
                 String end = rest.substring(toIndex + 5).trim();
                 LocalDateTime startDate = parseDateTime(start);
                 LocalDateTime endDate = parseDateTime(end);
+
+                if (endDate.isBefore(startDate)) {
+                    throw new IrisException("Did not know time travelled backwards for you."
+                            + "The end date is before the start date!");
+                }
+
                 return new EventCommand(description, startDate, endDate);
             } catch (DateTimeParseException e) {
                 throw new IrisException("Please abide by the standard format or else...\n"
