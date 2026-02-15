@@ -11,6 +11,7 @@ import seedu.iris.command.DeadlineCommand;
 import seedu.iris.command.DeleteCommand;
 import seedu.iris.command.EventCommand;
 import seedu.iris.command.FindCommand;
+import seedu.iris.command.HelpCommand;
 import seedu.iris.command.ListCommand;
 import seedu.iris.command.MarkCommand;
 import seedu.iris.command.TodoCommand;
@@ -31,6 +32,9 @@ public class Parser {
      */
     @SuppressWarnings("checkstyle:LineLength")
     public static Command parse(String input) throws IrisException, IrisInvalidException {
+        String[] words = input.split(" ");
+
+        assert words.length > 0 : "Input must have at least one token";
 
         if (input.equalsIgnoreCase("bye")) {
             return new ByeCommand();
@@ -45,6 +49,7 @@ public class Parser {
             if (parts.length != 2) {
                 throw new IrisException("I advise you to stop speaking gibberish");
             }
+
             try {
                 int index = Integer.parseInt(parts[1]) - 1;
                 return new MarkCommand(index);
@@ -93,16 +98,16 @@ public class Parser {
 
             if (byIndex == -1) {
                 throw new IrisException("I'm not omniscient you know? Give me more details.");
-            } else {
-                try {
-                    String description = rest.substring(0, byIndex).trim();
-                    String dateString = rest.substring(byIndex + 5).trim();
-                    LocalDateTime date = parseDateTime(dateString);
-                    return new DeadlineCommand(description, date);
-                } catch (DateTimeParseException e) {
-                    throw new IrisException("Losing a few screws? That date doesn't exist in this universe.\n"
-                            + "Use format YYYY-MM-DD or YYYY-MM-DD HH:MM");
-                }
+            }
+
+            try {
+                String description = rest.substring(0, byIndex).trim();
+                String dateString = rest.substring(byIndex + 5).trim();
+                LocalDateTime date = parseDateTime(dateString);
+                return new DeadlineCommand(description, date);
+            } catch (DateTimeParseException e) {
+                throw new IrisException("Losing a few screws? That date doesn't exist in this universe.\n"
+                        + "Use format YYYY-MM-DD or YYYY-MM-DD HH:MM");
             }
         }
 
@@ -114,18 +119,18 @@ public class Parser {
 
             if (fromIndex == -1 || toIndex == -1 || toIndex < fromIndex) {
                 throw new IrisException("Did you develop dementia? You missed out some crucial information!");
-            } else {
-                try {
-                    String description = rest.substring(0, fromIndex).trim();
-                    String start = rest.substring(fromIndex + 7, toIndex).trim();
-                    String end = rest.substring(toIndex + 5).trim();
-                    LocalDateTime startDate = parseDateTime(start);
-                    LocalDateTime endDate = parseDateTime(end);
-                    return new EventCommand(description, startDate, endDate);
-                } catch (DateTimeParseException e) {
-                    throw new IrisException("Please abide by the standard format or else...\n"
-                            + "Invalid date format. Use YYYY-MM-DD or YYYY-MM-DD HH:MM");
-                }
+            }
+
+            try {
+                String description = rest.substring(0, fromIndex).trim();
+                String start = rest.substring(fromIndex + 7, toIndex).trim();
+                String end = rest.substring(toIndex + 5).trim();
+                LocalDateTime startDate = parseDateTime(start);
+                LocalDateTime endDate = parseDateTime(end);
+                return new EventCommand(description, startDate, endDate);
+            } catch (DateTimeParseException e) {
+                throw new IrisException("Please abide by the standard format or else...\n"
+                        + "Invalid date format. Use YYYY-MM-DD or YYYY-MM-DD HH:MM");
             }
         }
 
@@ -134,7 +139,12 @@ public class Parser {
             if (keyword.isEmpty()) {
                 throw new IrisException("Find what?");
             }
+
             return new FindCommand(keyword);
+        }
+
+        if (input.startsWith("help")) {
+            return new HelpCommand();
         }
 
         throw new IrisInvalidException("Has your age finally caught up with you?\nI need a valid command!");
@@ -147,12 +157,14 @@ public class Parser {
         try {
             return LocalDateTime.parse(input, dateTimeFmt);
         } catch (DateTimeParseException e) {
-            try {
-                LocalDate date = LocalDate.parse(input, dateFmt);
-                return date.atStartOfDay();
-            } catch (DateTimeParseException ex) {
-                throw new DateTimeParseException("Invalid date/time format", input, 0);
-            }
+            // input does not include timing, try parsing with just date next
+        }
+
+        try {
+            LocalDate date = LocalDate.parse(input, dateFmt);
+            return date.atStartOfDay(); // set time to start of day if none is specified
+        } catch (DateTimeParseException ex) {
+            throw new DateTimeParseException("Invalid date/time format", input, 0);
         }
     }
 }

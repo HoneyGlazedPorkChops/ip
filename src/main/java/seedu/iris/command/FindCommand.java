@@ -1,6 +1,6 @@
 package seedu.iris.command;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import seedu.iris.storage.Storage;
 import seedu.iris.task.Task;
@@ -16,20 +16,21 @@ public class FindCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        ArrayList<Task> matches = tasks.find(keyword);
+
+        List<Task> matches = tasks.find(keyword);
 
         if (matches.isEmpty()) {
             return "Doctor Strange searched the multiverse and "
                     + "could not find a single universe where such task exists...";
         }
 
-        StringBuilder match = new StringBuilder();
+        StringBuilder matchString = new StringBuilder();
 
         for (int i = 0; i < matches.size(); i++) {
-            match.append((matches.indexOf(matches.get(i)))).append(". ").append(matches.get(i)).append("\n");
+            matchString.append((matches.indexOf(matches.get(i)))).append(". ").append(matches.get(i)).append("\n");
         }
 
         return "Here are the matching tasks in your list:\n"
-                + match;
+                + matchString;
     }
 }

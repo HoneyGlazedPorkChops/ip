@@ -1,6 +1,7 @@
 package seedu.iris.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a list of tasks and provides operations to manage them.
@@ -64,6 +65,8 @@ public class TaskList {
      * @return the task at specified index
      */
     public Task get(int index) {
+        assert index >= 0;
+        assert index < tasks.size();
         return tasks.get(index);
     }
 
@@ -82,16 +85,10 @@ public class TaskList {
      * @param keyword the word to search for
      * @return a list of matching tasks
      */
-    public ArrayList<Task> find(String keyword) {
-        ArrayList<Task> result = new ArrayList<>();
-        String lower = keyword.toLowerCase();
-
-        for (Task t : tasks) {
-            if (t.getDescription().toLowerCase().contains(lower)) {
-                result.add(t);
-            }
-        }
-        return result;
+    public List<Task> find(String keyword) {
+        return tasks.stream()
+                .filter(t -> t.getDescription().contains(keyword.toLowerCase()))
+                .toList();
     }
 
 
