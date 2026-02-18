@@ -43,6 +43,7 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/user.jpg"));
     private Image irisImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/iris.jpg"));
     private Image errImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/stare.png"));
+    private static String DEFAULT_PATH = "/seedu/iris/view/DialogBox.fxml";
     private MusicPlayer musicPlayer;
     private Label playIcon;
     private Label pauseIcon;
@@ -83,7 +84,7 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getIrisDialog("""
                  Hello! I'm Iris
                  What can I do for you?
-                """, irisImage)
+                """, irisImage, DEFAULT_PATH)
         );
     }
 
@@ -139,14 +140,15 @@ public class MainWindow extends AnchorPane {
 
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getIrisDialog(response, irisImage)
+                    DialogBox.getIrisDialog(response, irisImage, DEFAULT_PATH)
             );
             userInput.clear();
         } catch (IrisException e) {
             String errMsg = e.getMessage();
 
             dialogContainer.getChildren().addAll(DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getIrisDialog(errMsg, irisImage));
+                    DialogBox.getIrisDialog(errMsg, irisImage, "/seedu/iris/view/ErrorBox.fxml")
+            );
             userInput.clear();
         } catch (IrisInvalidException e) {
             String errMsg = e.getMessage();

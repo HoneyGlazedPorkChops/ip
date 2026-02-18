@@ -40,9 +40,9 @@ public class DialogBox extends HBox {
     @FXML
     private VBox messagePane;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, String path) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/seedu/iris/view/DialogBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(path));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -92,13 +92,13 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        var db = new DialogBox(text, img, "/seedu/iris/view/DialogBox.fxml");
         db.getStyleClass().add("user");
         return db;
     }
 
-    public static DialogBox getIrisDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+    public static DialogBox getIrisDialog(String text, Image img, String path) {
+        var db = new DialogBox(text, img, path);
         db.flip();
         db.getStyleClass().add("bot");
         return db;
