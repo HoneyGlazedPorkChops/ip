@@ -48,3 +48,31 @@
     -fx-pref-height: 0;
     -fx-opacity: 0;
 }
+
+.play-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+
+    -fx-min-width: 35px;
+    -fx-pref-width: 35px;
+    -fx-min-height: 31px;
+    -fx-pref-height: 31px;
+}
+
+.play-button:hover {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.music-bar {
+    -fx-background-color: linear-gradient(
+        from 0% 0% to 0% 100%,
+        rgba(0,0,0,0.45) 0%,
+        rgba(0,0,0,0.01) 100%
+    );
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 5, 0.5, 0, 2);
+    -fx-padding: 5 15 5 15;
+}
