@@ -19,10 +19,10 @@ public class HelpCommand extends Command {
                 [todo <task>]
                 
                 DEADLINE - Adds a task with a deadline to meet
-                [deadline <task> /by <YYYY-MM-DD>/<YYYY-MM-DD HH:MM>]
+                [deadline <task> /by <YYYY-MM-DD> (HH:MM)]
                 
                 EVENT - Adds a task with specific time frame
-                [event <task> /from <YYYY-MM-DD>/<YYYY-MM-DD HH:MM> /to <YYYY-MM-DD>/<YYYY-MM-DD HH:MM>]
+                [event <task> /from <YYYY-MM-DD> (HH:MM) /to <YYYY-MM-DD> (HH:MM)]
                 
                 MARK - mark a task as done
                 [mark <index>]
