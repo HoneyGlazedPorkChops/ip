@@ -14,130 +14,24 @@ Iris is a simple chatbot that helps you track personal tasks, with a bit of flai
 Hello! I'm Iris
 What can I do for you?
 ```
-
-3. Type "help" to see the list of commands available.
-
----
-
-# 📋 Features
-
-## 1️⃣ Adding a ToDo
-
-Adds a simple task without a date.
-
-```
-todo <description>
-```
-
-Example:
-```
-todo read book
-```
+- Type "help" to see the list of commands available.
 
 ---
 
-## 2️⃣ Adding a Deadline
+# 📋 Command Summary
 
-Adds a task with a due date.
-
-```
-deadline <description> /by <date> [time]
-```
-
-Example:
-```
-deadline submit report /by 2026-02-20 17:30
-```
-
----
-
-## 3️⃣ Adding an Event
-
-Adds a task that happens at a specific time.
-
-```
-event <description> /from <date> [time] /to <date> [time]
-```
-
-Example:
-```
-event team meeting /from 2026-02-20 12:00 /to 2026-02-20 16:00
-```
-
----
-
-## 4️⃣ Listing Tasks
-
-Displays all tasks.
-
-```
-list
-```
-
----
-
-## 5️⃣ Marking a Task as Done
-
-Marks a task using its number.
-
-```
-mark <task number>
-```
-
-Example:
-```
-mark 2
-```
-
----
-
-## 6️⃣ Unmarking a Task
-
-Marks a task as not done.
-
-```
-unmark <task number>
-```
-
-Example:
-```
-mark 4
-```
-
----
-
-## 7️⃣ Deleting a Task
-
-Removes a task from the list.
-
-```
-delete <task number>
-```
-
----
-
-## 8️⃣ Finding Tasks
-
-Finds tasks containing a keyword.
-
-```
-find <keyword>
-```
-
-Example:
-```
-find report
-```
-
----
-
-## 9️⃣ Exiting the Application
-
-Closes Iris.
-
-```
-bye
-```
+| Command          | Format                                                      | Description                                  | Example                                                        |
+|------------------|-------------------------------------------------------------|----------------------------------------------|----------------------------------------------------------------|
+| **Add ToDo**     | `todo <description>`                                        | Adds a simple task without a date.           | todo read book                                                 |
+| **Add Deadline** | `deadline <description> /by <date> (time)`                  | Adds a task with a due date.                 | deadline submit report /by 2026-02-20 17:30                    |
+| **Add Event**    | `event <description> /from <date> (time) /to <date> (time)` | Adds a task with an event duration.          | event team meeting /from 2026-02-20 12:00 /to 2026-02-20 16:00 |
+| **List Tasks**   | `list`                                                      | Displays all tasks.                          | list                                                           |
+| **Mark Task**    | `mark <task number>`                                        | Marks the specified task as done.            | mark 3                                                         |
+| **Unmark Task**  | `unmark <task number>`                                      | Marks the specified task as not done.        | unmark 3                                                       |
+| **Delete Task**  | `delete <task number>`                                      | Deletes the specified task.                  | delete 4                                                       |
+| **Find Tasks**   | `find <keyword>`                                            | Displays tasks containing the given keyword. | find meeting                                                   |
+| **Help**         | `help`                                                      | lists down all commands and formats.         | help                                                           |
+| **Exit Application** | `bye`                                                       | Exits the application.                       | bye                                                            |
 
 ---
 
