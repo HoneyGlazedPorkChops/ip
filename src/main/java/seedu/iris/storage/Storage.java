@@ -59,7 +59,7 @@ public class Storage {
                     list.add(t);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | IrisException e) {
             throw new IrisException("It appears there was an error when loading saved tasks...");
         }
 
@@ -73,17 +73,17 @@ public class Storage {
      *
      * @param tasks the list of tasks to save
      */
-    public void save(ArrayList<Task> tasks) {
+    public void save(ArrayList<Task> tasks) throws IrisException {
         try (PrintWriter pw = new PrintWriter(new FileWriter(this.filePath))) {
             for (Task t : tasks) {
                 pw.println(t.toSaveString());
             }
         } catch (IOException e) {
-            System.out.println("Error saving tasks.");
+            throw new IrisException("Error saving tasks.");
         }
     }
 
-    private static Task parseTask(String line) {
+    private static Task parseTask(String line) throws IrisException {
         try {
             String[] parts = line.split("\\|");
 
@@ -106,7 +106,7 @@ public class Storage {
                 t = new Event(parts[2].trim(), from, to);
                 break;
             default:
-                break;
+                throw new IrisException("⚠ Warning: Skipped corrupted save line");
             }
 
             if (done && t != null) {
@@ -116,9 +116,7 @@ public class Storage {
             return t;
 
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            System.out.println("⚠ Warning: Skipped corrupted save line:");
-            System.out.println("    " + line);
-            return null;
+            throw new IrisException("⚠ Warning: Skipped corrupted save line");
         }
     }
 }

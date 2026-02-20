@@ -2,6 +2,7 @@ package seedu.iris.command;
 
 import java.time.LocalDateTime;
 
+import seedu.iris.exception.IrisException;
 import seedu.iris.storage.Storage;
 import seedu.iris.task.Deadline;
 import seedu.iris.task.TaskList;
@@ -20,9 +21,16 @@ public class DeadlineCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Deadline deadline = new Deadline(description, by);
         tasks.add(deadline);
-        storage.save(tasks.getAll());
-        return "Added the following task:\n" + deadline.toString()
-                + "\nIt is called a Deadline for a reason, better hurry up\n"
-                + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n";
+        try {
+            storage.save(tasks.getAll());
+            return "Added the following task:\n" + deadline.toString()
+                    + "\nIt is called a Deadline for a reason, better hurry up\n"
+                    + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n";
+        } catch (IrisException e) {
+            return "Added the following task:\n" + deadline.toString()
+                    + "\nIt is called a Deadline for a reason, better hurry up\n"
+                    + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n"
+                    + e.getMessage();
+        }
     }
 }

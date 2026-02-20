@@ -1,5 +1,6 @@
 package seedu.iris.command;
 
+import seedu.iris.exception.IrisException;
 import seedu.iris.storage.Storage;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
@@ -18,10 +19,17 @@ public class UnmarkCommand extends Command {
                     + "tasks that you have not told me about right?";
         } else {
             tasks.unmark(index);
-            storage.save(tasks.getAll());
-            return "Looks like someone is slow... I have marked it as undone for you:\n"
-                    + tasks.get(index).toString() + "\n        Now you have " + tasks.size() + " tasks in the list."
-                    + "\n\nWhat are you waiting for? Go on then.";
+            try {
+                storage.save(tasks.getAll());
+                return "Looks like someone is slow... I have marked it as undone for you:\n"
+                        + tasks.get(index).toString() + "\n        Now you have " + tasks.size() + " tasks in the list."
+                        + "\n\nWhat are you waiting for? Go on then.";
+            } catch (IrisException e) {
+                return "Looks like someone is slow... I have marked it as undone for you:\n"
+                        + tasks.get(index).toString() + "\n        Now you have " + tasks.size() + " tasks in the list."
+                        + "\n\nWhat are you waiting for? Go on then.\n"
+                        + e.getMessage();
+            }
         }
     }
 }

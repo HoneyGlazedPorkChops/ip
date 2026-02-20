@@ -43,7 +43,8 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/user.jpg"));
     private Image irisImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/iris.jpg"));
     private Image errImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/stare.png"));
-    private static String DEFAULT_PATH = "/seedu/iris/view/DialogBox.fxml";
+    private Image corruptedImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/despair.gif"));
+    private static final String DEFAULT_PATH = "/seedu/iris/view/DialogBox.fxml";
     private MusicPlayer musicPlayer;
     private Label playIcon;
     private Label pauseIcon;
@@ -89,7 +90,18 @@ public class MainWindow extends AnchorPane {
     }
 
     public void setIris(Iris i) {
-        iris = i;
+        this.iris = i;
+
+        if (iris.getCorrupted()) {
+            dialogContainer.getChildren().add(
+                    DialogBox.getIrisDialog("""
+                    The save file was corrupted and
+                    previous data could not be recovered...
+                 
+                    I'm sorry...
+                    """, corruptedImage, irisImage)
+            );
+        }
     }
 
     private void scrollTextStart() {

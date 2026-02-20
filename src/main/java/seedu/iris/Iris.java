@@ -8,6 +8,7 @@ import seedu.iris.storage.Storage;
 import seedu.iris.task.Task;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
+import java.util.ArrayList;
 
 /**
  * Handles loading and saving of tasks to persistent storage.
@@ -20,6 +21,7 @@ public class Iris {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isCorrupted = false;
 
     /**
      * Constructs the Iris chatbot with the default save file.
@@ -39,8 +41,13 @@ public class Iris {
         try {
             tasks = new TaskList(storage.load());
         } catch (IrisException e) {
-            ui.showError(e.getMessage());
+            this.isCorrupted = true;
+            tasks = new TaskList(new ArrayList<Task>());
         }
+    }
+
+    public boolean getCorrupted() {
+        return this.isCorrupted;
     }
 
     public String getResponse(String input) throws IrisInvalidException, IrisException {

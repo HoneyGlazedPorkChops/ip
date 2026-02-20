@@ -2,6 +2,7 @@ package seedu.iris.command;
 
 import java.time.LocalDateTime;
 
+import seedu.iris.exception.IrisException;
 import seedu.iris.storage.Storage;
 import seedu.iris.task.Event;
 import seedu.iris.task.TaskList;
@@ -22,9 +23,16 @@ public class EventCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         Event event = new Event(description, start, end);
         tasks.add(event);
-        storage.save(tasks.getAll());
-        return "Added the following task:\n" + event.toString()
-                + "\n\n like fun... or a chore...\n"
-                + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n";
+        try {
+            storage.save(tasks.getAll());
+            return "Added the following task:\n" + event.toString()
+                    + "\n\n like fun... or a chore...\n"
+                    + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n";
+        } catch (IrisException e) {
+            return "Added the following task:\n" + event.toString()
+                    + "\n\n like fun... or a chore...\n"
+                    + "\n\n        Now you have " + tasks.size() + " tasks in the list.\n"
+                    + e.getMessage();
+        }
     }
 }

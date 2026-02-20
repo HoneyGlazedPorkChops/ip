@@ -1,5 +1,6 @@
 package seedu.iris.command;
 
+import seedu.iris.exception.IrisException;
 import seedu.iris.storage.Storage;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
@@ -21,11 +22,19 @@ public class DeleteCommand extends Command {
         } else {
             String msg = tasks.get(index).toString();
             tasks.remove(index);
-            storage.save(tasks.getAll());
-            return "Here I was beginning to think you have forgotten about this...\n"
-                    + "I have removed the following task:\n"
-                    + msg + "\n        Now you have " + tasks.size() + " tasks in the list."
-                    + "\nMore free time for you then... Enjoy.";
+            try {
+                storage.save(tasks.getAll());
+                return "Here I was beginning to think you have forgotten about this...\n"
+                        + "I have removed the following task:\n"
+                        + msg + "\n        Now you have " + tasks.size() + " tasks in the list."
+                        + "\nMore free time for you then... Enjoy.";
+            } catch (IrisException e) {
+                return "Here I was beginning to think you have forgotten about this...\n"
+                        + "I have removed the following task:\n"
+                        + msg + "\n        Now you have " + tasks.size() + " tasks in the list."
+                        + "\nMore free time for you then... Enjoy.\n"
+                        + e.getMessage();
+            }
         }
     }
 }
