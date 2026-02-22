@@ -83,6 +83,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses tasks in String format from storage file to a Task Object.
+     *
+     * @param line the task in string format to be converted to a task object
+     */
     private static Task parseTask(String line) throws IrisException {
         try {
             String[] parts = line.split("\\|");

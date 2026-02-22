@@ -3,11 +3,17 @@ package seedu.iris;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+/**
+ * Handles music player functions which includes resuming and pausing
+ */
 public class MusicPlayer {
 
     private MediaPlayer mediaPlayer;
     private Media bgm = new Media(this.getClass().getResource("/seedu/iris/music/bgm.mp3").toExternalForm());
 
+    /**
+     * Constructs MusicPlayer which sets the music as the mp3 file accordingly
+     */
     public MusicPlayer() {
         mediaPlayer = new MediaPlayer(bgm);
 
@@ -25,9 +31,5 @@ public class MusicPlayer {
 
     public boolean isPlaying() {
         return mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING;
-    }
-
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
     }
 }

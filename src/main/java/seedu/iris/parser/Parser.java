@@ -28,7 +28,8 @@ public class Parser {
      *
      * @param input the raw user input
      * @return a command object representing the user's request
-     * @throws IrisException if the input is not a valid command
+     * @throws IrisException if the input command is not in the right format
+     * @throws IrisInvalidException if the input is not a valid command
      */
     @SuppressWarnings("checkstyle:LineLength")
     public static Command parse(String input) throws IrisException, IrisInvalidException {

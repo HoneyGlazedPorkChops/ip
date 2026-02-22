@@ -23,6 +23,8 @@ import seedu.iris.exception.IrisInvalidException;
  * Controller for the main GUI.
  */
 public class MainWindow extends AnchorPane {
+    private static final String DEFAULT_PATH = "/seedu/iris/view/DialogBox.fxml";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -44,14 +46,20 @@ public class MainWindow extends AnchorPane {
     private Image irisImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/iris.jpg"));
     private Image errImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/stare.png"));
     private Image corruptedImage = new Image(this.getClass().getResourceAsStream("/seedu/iris/images/despair.gif"));
-    private static final String DEFAULT_PATH = "/seedu/iris/view/DialogBox.fxml";
+
     private MusicPlayer musicPlayer;
+
     private Label playIcon;
+
     private Label pauseIcon;
+
     private Timeline timeline;
 
     private double textPosition = 115;
 
+    /**
+     * Initializes the GUI
+     */
     @FXML
     public void initialize() {
         scrollPane.setFitToWidth(true);
@@ -89,6 +97,10 @@ public class MainWindow extends AnchorPane {
         );
     }
 
+    /**
+     * Sets an Iris object to be referenced to. Checks if save file has been corrupted
+     * and sends an alert if so
+     */
     public void setIris(Iris i) {
         this.iris = i;
 
@@ -104,10 +116,16 @@ public class MainWindow extends AnchorPane {
         }
     }
 
+    /**
+     * Sets initial position of a text that is being scrolled
+     */
     private void scrollTextStart() {
         trackName.setTranslateX(textPosition);
     }
 
+    /**
+     * Sets speed at which text is being scrolled at
+     */
     private void scrollTextStep() {
         textPosition -= 0.5;
 
@@ -118,6 +136,9 @@ public class MainWindow extends AnchorPane {
         trackName.setTranslateX(textPosition);
     }
 
+    /**
+     * Pause and Resumes music accordingly and adjusts the UI effect of the music player
+     */
     @FXML
     private void handlePlayPause() {
         if (musicPlayer.isPlaying()) {

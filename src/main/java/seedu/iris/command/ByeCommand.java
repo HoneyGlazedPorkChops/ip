@@ -4,6 +4,9 @@ import seedu.iris.storage.Storage;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
 
+/**
+ * Represents the Bye command which can be called by the user
+ */
 public class ByeCommand extends Command {
     public ByeCommand() {
         isExit = true;

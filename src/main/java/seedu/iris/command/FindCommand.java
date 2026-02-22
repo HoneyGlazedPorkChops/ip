@@ -7,9 +7,17 @@ import seedu.iris.task.Task;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
 
+/**
+ * Represents the Find command which can be called by the user
+ */
 public class FindCommand extends Command {
     private final String keyword;
 
+    /**
+     * Constructs Find command
+     *
+     * @param keyword word in which the user is searching for
+     */
     public FindCommand(String keyword) {
         this.keyword = keyword;
     }

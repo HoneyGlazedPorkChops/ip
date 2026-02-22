@@ -6,9 +6,17 @@ import seedu.iris.task.TaskList;
 import seedu.iris.task.ToDo;
 import seedu.iris.ui.Ui;
 
+/**
+ * Represents the Todo command which is a task with no time restriciton
+ */
 public class TodoCommand extends Command {
     private final String description;
 
+    /**
+     * Constructs the todo command
+     *
+     * @param description Description of the task
+     */
     public TodoCommand(String description) {
         this.description = description;
     }

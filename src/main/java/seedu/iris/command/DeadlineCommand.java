@@ -8,10 +8,19 @@ import seedu.iris.task.Deadline;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
 
+/**
+ * Represents the deadline command which sets a task with a time limit
+ */
 public class DeadlineCommand extends Command {
     private final String description;
     private final LocalDateTime by;
 
+    /**
+     * Constructs deadline command
+     *
+     * @param description Description of the task
+     * @param by timing set by the user
+     */
     public DeadlineCommand(String description, LocalDateTime by) {
         this.description = description;
         this.by = by;

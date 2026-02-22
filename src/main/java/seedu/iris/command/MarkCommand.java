@@ -5,9 +5,17 @@ import seedu.iris.storage.Storage;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
 
+/**
+ * Represents the Mark command which can be called by the user
+ */
 public class MarkCommand extends Command {
     private final int index;
 
+    /**
+     * Constructs the Mark command
+     *
+     * @param index the index of the task which the user wants marked
+     */
     public MarkCommand(int index) {
         this.index = index;
     }

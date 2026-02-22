@@ -5,9 +5,17 @@ import seedu.iris.storage.Storage;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
 
+/**
+ * Represents the Delete command which can be called by the user
+ */
 public class DeleteCommand extends Command {
     private final int index;
 
+    /**
+     * Constructs the delete command
+     *
+     * @param index the index of task which would be deleted
+     */
     public DeleteCommand(int index) {
         this.index = index;
     }

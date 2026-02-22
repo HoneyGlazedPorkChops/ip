@@ -40,6 +40,9 @@ public class DialogBox extends HBox {
     @FXML
     private VBox messagePane;
 
+    /**
+     * Constructs Dialog Box containing texts only
+     */
     private DialogBox(String text, Image img, String path) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(path));
@@ -56,9 +59,13 @@ public class DialogBox extends HBox {
         makeImageCircular();
     }
 
+    /**
+     * Constructs Dialog Box containing both text and images
+     */
     private DialogBox(String text, Image messageImg, Image img) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/seedu/iris/view/DialogImageBox.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource(
+                    "/seedu/iris/view/DialogImageBox.fxml"));
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
@@ -83,6 +90,9 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Makes avatar icons circular
+     */
     private void makeImageCircular() {
         double radius = displayPicture.getFitWidth() / 2.0;
 

@@ -5,9 +5,17 @@ import seedu.iris.storage.Storage;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
 
+/**
+ * Represents the Unmark command which can be called by the user
+ */
 public class UnmarkCommand extends Command {
     private final int index;
 
+    /**
+     * Constructs the unmark command
+     *
+     * @param index Index of the task which the user wants unmarked
+     */
     public UnmarkCommand(int index) {
         this.index = index;
     }

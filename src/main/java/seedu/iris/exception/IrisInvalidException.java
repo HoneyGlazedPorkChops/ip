@@ -1,11 +1,11 @@
 package seedu.iris.exception;
 
 /**
- * Represents errors specific to the Iris chatbot.
+ * Represents errors specific to the Iris chatbot regarding invalid commands.
  */
 public class IrisInvalidException extends Exception {
     /**
-     * Creates an IrisException with the given error message.
+     * Creates an IrisInvalidException with the given error message.
      *
      * @param message the error message
      */

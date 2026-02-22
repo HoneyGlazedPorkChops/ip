@@ -1,5 +1,7 @@
 package seedu.iris;
 
+import java.util.ArrayList;
+
 import seedu.iris.command.Command;
 import seedu.iris.exception.IrisException;
 import seedu.iris.exception.IrisInvalidException;
@@ -8,13 +10,9 @@ import seedu.iris.storage.Storage;
 import seedu.iris.task.Task;
 import seedu.iris.task.TaskList;
 import seedu.iris.ui.Ui;
-import java.util.ArrayList;
 
 /**
- * Handles loading and saving of tasks to persistent storage.
- * <p>
- * Tasks are stored in a plain text file, with one task per line.
- * Each line can be converted back into a {@link Task} using the parser.
+ * Main chatbot class which handles the logic for every command
  */
 public class Iris {
     private static final String DEFAULT_FILE = "tasks.txt";
@@ -50,6 +48,13 @@ public class Iris {
         return this.isCorrupted;
     }
 
+    /**
+     * Executes instruction given by user and returns a String output.
+     *
+     * @param input the user instruction
+     * @throws IrisException given by Parser.parse(input)
+     * @throws IrisInvalidException given by Parser.parse(input)
+     */
     public String getResponse(String input) throws IrisInvalidException, IrisException {
         Command c = Parser.parse(input);
         return c.execute(tasks, ui, storage);

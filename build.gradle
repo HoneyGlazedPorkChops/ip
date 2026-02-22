@@ -33,7 +33,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.iris.Main")
+    mainClass.set("seedu.iris.Launcher")
 }
 
 shadowJar {
